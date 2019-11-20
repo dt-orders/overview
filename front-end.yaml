@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end
+  labels:
+    app: front-end
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      name: front-end
+  selector:
+    app: front-end
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: front-end
+  labels:
+    app: front-end
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: front-end
+    spec:
+      containers:
+      - name: front-end
+        image: robjahn/keptn-orders-front-end:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: front-end
+        env:
+        - name: DT_TAGS
+          value: "application=orders service=front-end"  
