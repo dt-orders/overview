@@ -1,19 +1,4 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: order
-  labels:
-    app: order
-spec:
-  ports:
-    - port: 80
-      targetPort: 8080
-      name: order
-  selector:
-    app: order
-  type: LoadBalancer
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order
@@ -31,11 +16,26 @@ spec:
     spec:
       containers:
       - name: order
-        image: dtdemos/keptn-orders-order:1
+        image: dtdemos/keptn-orders-order-service:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name: order
+          name: cust-service
         env:
         - name: DT_TAGS
           value: "application=orders service=order"  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order
+  labels:
+    app: order
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: order
+  selector:
+    app: order
+  type: NodePort
