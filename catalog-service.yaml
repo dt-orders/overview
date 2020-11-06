@@ -1,38 +1,41 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: catalog-service
-  labels:
-    app: catalog-service
-spec:
-  ports:
-    - port: 80
-      targetPort: 8080
-      name: catalog-service
-  selector:
-    app: catalog-service
-  type: LoadBalancer
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-service
+  name: catalog
   labels:
-    app: catalog-service
+    app: catalog
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: catalog
   template:
     metadata:
       labels:
-        app: catalog-service
+        app: catalog
     spec:
       containers:
-      - name: catalog-service
-        image: robjahn/keptn-orders-catalog-service:1
+      - name: catalog
+        image: dtdemos/dt-orders-catalog-service:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name: catalog-service
+          name: catalog
         env:
         - name: DT_TAGS
-          value: "application=orders service=catalog-service"  
+          value: "application=orders service=catalog"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog
+  labels:
+    app: catalog
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: catalog
+  selector:
+    app: catalog
+  type: NodePort
