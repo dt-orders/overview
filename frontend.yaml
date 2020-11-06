@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: dtdemos/keptn-orders-frontend-node:1
+        image: dtdemos/dt-orders-frontend-node:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

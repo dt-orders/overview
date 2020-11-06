@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: dtdemos/keptn-orders-catalog-service:1
+        image: dtdemos/dt-orders-catalog-service:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
