@@ -3,14 +3,16 @@ kind: Service
 metadata:
   name: frontend
   labels:
-    app: frontend
+    app: dt-orders
+    service: frontend
 spec:
   ports:
     - port: 80
       targetPort: 8080
       name: frontend
   selector:
-    app: frontend
+    app: dt-orders
+    service: frontend
   type: LoadBalancer
 ---
 apiVersion: apps/v1
@@ -18,24 +20,24 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: frontend
+    app: dt-orders
+    service: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: dt-orders
+      service: frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: dt-orders
+        service: frontend
     spec:
       containers:
       - name: frontend
-        image: dtdemos/dt-orders-frontend-node:1
+        image: dtdemos/dt-orders-frontend:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name: frontend
-        env:
-        - name: DT_TAGS
-          value: "application=orders service=frontend"  
+          name: frontend 

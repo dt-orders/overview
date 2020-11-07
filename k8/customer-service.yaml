@@ -1,41 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog
+  name: customer
   labels:
-    app: catalog
+    app: dt-orders
+    service: customer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: catalog
+      app: dt-orders
+      service: customer
   template:
     metadata:
       labels:
-        app: catalog
+        app: dt-orders
+        service: customer
     spec:
       containers:
-      - name: catalog
-        image: dtdemos/dt-orders-catalog-service:1
+      - name: customer
+        image: dtdemos/dt-orders-customer-service:1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name: catalog
-        env:
-        - name: DT_TAGS
-          value: "application=orders service=catalog"
+          name: cust-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog
+  name: customer
   labels:
-    app: catalog
+    app: dt-orders
+    service: customer
 spec:
   ports:
     - port: 8080
       targetPort: 8080
-      name: catalog
+      name: customer
   selector:
-    app: catalog
+    app: dt-orders
+    service: customer
   type: NodePort
