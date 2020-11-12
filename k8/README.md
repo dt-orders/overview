@@ -36,10 +36,10 @@ order-657b698d96-vhw5m      1/1     Running   0          6m47s
 ```
 kubectl -n dt-orders get svc
 NAME       TYPE           CLUSTER-IP       EXTERNAL-IP                       PORT(S)          AGE
-catalog    NodePort       10.100.27.48     <none>                            8080:30092/TCP   43m
-customer   NodePort       10.100.132.224   <none>                            8080:31785/TCP   38m
+catalog    ClusterIP      10.100.27.48     <none>                            8080:30092/TCP   43m
+customer   ClusterIP      10.100.132.224   <none>                            8080:31785/TCP   38m
 frontend   LoadBalancer   10.100.247.102   xxx.eu-west-3.elb.amazonaws.com   80:30879/TCP     51m
-order      NodePort       10.100.104.247   <none>                            8080:32667/TCP   38m
+order      ClusterIP      10.100.104.247   <none>                            8080:32667/TCP   38m
 ```
 
 7 . Get the external URL for the frontend

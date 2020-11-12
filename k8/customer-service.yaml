@@ -40,4 +40,4 @@ spec:
   selector:
     app: dt-orders
     service: customer
-  type: NodePort
+  type: ClusterIP
