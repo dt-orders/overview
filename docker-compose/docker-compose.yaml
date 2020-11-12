@@ -2,7 +2,7 @@ version: '3'
 services:
   front-end:
     hostname: frontend
-    image: dtdemos/dt-orders-frontend-node:1
+    image: dtdemos/dt-orders-frontend:1
     ports:
       - 80:8080
     environment:
