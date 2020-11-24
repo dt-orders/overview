@@ -18,16 +18,16 @@ pipeline {
         WAIT_TILL_READY_FILE = "/home/ubuntu/workshop/helper-scripts/wait-till-ready.sh"
         LOAD_TEST_FILE = "/home/ubuntu/workshop/lab3/sendtraffic.sh"
         //templates
-        FRONT_END_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/frontend.yaml"
-        CATALOG_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/catalog-service.yaml"
-        ORDER_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/order-service.yaml"
-        CUSTOMER_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/customer-service.yaml"         
+        FRONT_END_FILE_TEMPLATE_FILE = "/var/jenkins_home/workspace/Test/k8/template/frontend.yaml"
+        CATALOG_FILE_TEMPLATE_FILE = "/var/jenkins_home/workspace/Test/k8/template/catalog-service.yaml"
+        ORDER_FILE_TEMPLATE_FILE = "/var/jenkins_home/workspace/Test/k8/template/order-service.yaml"
+        CUSTOMER_FILE_TEMPLATE_FILE = "/var/jenkins_home/workspace/Test/k8/template/customer-service.yaml"         
         
         //
-        FRONT_END_FILE = "/home/ubuntu/overview/k8/lab2/frontend.yaml"
-        CATALOG_FILE = "/home/ubuntu/overview/k8/lab2/catalog-service.yaml"
-        ORDER_FILE = "/home/ubuntu/overview/k8/lab2/order-service.yaml"
-        CUSTOMER_FILE = "/home/ubuntu/overview/k8/lab2/customer-service.yaml"    
+        FRONT_END_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/frontend.yaml"
+        CATALOG_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/catalog-service.yaml"
+        ORDER_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/order-service.yaml"
+        CUSTOMER_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/customer-service.yaml"    
         
         // build the docker image name using tag value passed as parameters
         frontendimage = "dtdemos/dt-orders-frontend:${params.frontend_version}"
