@@ -51,6 +51,7 @@ pipeline {
                     //sed -i 's/dtdemos\/dt-orders-customer-service:3/dtdemos\/dt-orders-customer-service:2/g' customer-service.yaml
                     //sh "sed -i 's/dtdemos\/dt-orders-frontend:1/dtdemos\/dt-orders-frontend:1/g' ${FRONT_END_FILE}"
                     sh "pwd"
+                    sh "ls"
                     sh "cp -f ${FRONT_END_FILE_TEMPLATE_FILE} ${FRONT_END_FILE}"
                     sh "sed -i 's#REPLACE-FRONTEND-IMAGE#${env.frontendimage}#g' ${FRONT_END_FILE}"
                     //sh "sed -i 's${FRONT_END_FILE}\/${env.frontendimage}#g' ${FRONT_END_FILE}"
