@@ -17,15 +17,20 @@ pipeline {
         DOCKER_COMPOSE_FILE = "/home/ubuntu/workshop/lab4/docker-compose.yaml"
         WAIT_TILL_READY_FILE = "/home/ubuntu/workshop/helper-scripts/wait-till-ready.sh"
         LOAD_TEST_FILE = "/home/ubuntu/workshop/lab3/sendtraffic.sh"
-
+        //
+        FRONT_END_FILE = "/home/ubuntu/overview/k8/lab2/frontend.yaml"
+        CATALOG_FILE = "/home/ubuntu/overview/k8/lab2/catalog-service.yaml"
+        ORDER_FILE = "/home/ubuntu/overview/k8/lab2/order-service.yaml"
+        CUSTOMER_FILE = "/home/ubuntu/overview/k8/lab2/customer-service.yaml"    
+        
         // build the docker image name using tag value passed as parameters
-        frontendimage = "robjahn/keptn-orders-front-end:${params.frontend_version}"
-        orderserviceimage = "robjahn/keptn-orders-order-service:${params.order_service_version}"
-        customerserviceimage = "robjahn/keptn-orders-customer-service:${params.customer_service_version}"
-        catalogserviceimage = "robjahn/keptn-orders-catalog-service:${params.catalog_service_version}"
+        frontendimage = "dtdemos/dt-orders-frontend:${params.frontend_version}"
+        orderserviceimage = "dtdemos/dt-orders-order-service:${params.order_service_version}"
+        customerserviceimage = "dtdemos/dt-orders-customer-service:${params.customer_service_version}"
+        catalogserviceimage = "dtdemos/dt-orders-catalog-service:${params.catalog_service_version}"
     }
     stages {
-        stage('configure-docker-compose-file') {
+        stage('configure-yaml-files') {
             steps {
                 script {
                     echo "============================================="
@@ -37,36 +42,23 @@ pipeline {
                     echo "============================================="
 
                     // update the docker-compse file with the new image names
-                    sh "cp -f ${DOCKER_COMPOSE_TEMPLATE_FILE} ${DOCKER_COMPOSE_FILE}"
-                    sh "sed -i 's#REPLACE-FRONTEND-IMAGE#${env.frontendimage}#g' ${DOCKER_COMPOSE_FILE}"
-                    sh "sed -i 's#REPLACE-ORDER-IMAGE#${env.orderserviceimage}#g' ${DOCKER_COMPOSE_FILE}"
-                    sh "sed -i 's#REPLACE-CUSTOMER-IMAGE#${env.customerserviceimage}#g' ${DOCKER_COMPOSE_FILE}"
-                    sh "sed -i 's#REPLACE-CATALOG-IMAGE#${env.catalogserviceimage}#g' ${DOCKER_COMPOSE_FILE}"
-                    sh "cat ${DOCKER_COMPOSE_FILE}"
+                    //sed -i 's/dtdemos\/dt-orders-customer-service:3/dtdemos\/dt-orders-customer-service:2/g' customer-service.yaml
+                    sh "sed -i 's#REPLACE-FRONTEND-IMAGE#${env.frontendimage}#g' ${FRONT_END_FILE}"
+                    sh "sed -i 's#REPLACE-ORDER-IMAGE#${env.orderserviceimage}#g' ${ORDER_FILE}"
+                    sh "sed -i 's#REPLACE-CUSTOMER-IMAGE#${env.customerserviceimage}#g' ${CUSTOMER_FILE}"
+                    sh "sed -i 's#REPLACE-CATALOG-IMAGE#${env.catalogserviceimage}#g' ${CATALOG_FILE}"
+                    sh "cat ${CATALOG_FILE}"
                 }
             }
         }
 
-        stage('docker-down') {
-            steps {
-    	        step([$class: 'DockerComposeBuilder', dockerComposeFile: "${DOCKER_COMPOSE_FILE}", option: [$class: 'StopAllServices'], useCustomDockerComposeFile: true])
-            }
-        }
-        
-        stage('docker-compose-up') {
-            steps {
-                step([$class: 'DockerComposeBuilder', dockerComposeFile: "${DOCKER_COMPOSE_FILE}", option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
-            }
-        }
-
-        stage('wait-till-ready') {
+        stage('Kube_apply') {
             steps {
                 script {
-                    sh "${WAIT_TILL_READY_FILE}"
+                sh "kubectl -n dt-orders apply -f /home/ubuntu/overview/k8/lab2/."
                 }
-            }
         }
-
+        
         stage('Push Dynatrace Deployment Event') {
             steps {
                 script {
