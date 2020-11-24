@@ -17,6 +17,12 @@ pipeline {
         DOCKER_COMPOSE_FILE = "/home/ubuntu/workshop/lab4/docker-compose.yaml"
         WAIT_TILL_READY_FILE = "/home/ubuntu/workshop/helper-scripts/wait-till-ready.sh"
         LOAD_TEST_FILE = "/home/ubuntu/workshop/lab3/sendtraffic.sh"
+        //templates
+        FRONT_END_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/frontend.yaml"
+        CATALOG_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/catalog-service.yaml"
+        ORDER_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/order-service.yaml"
+        CUSTOMER_FILE_TEMPLATE_FILE = "/home/ubuntu/overview/k8/template/customer-service.yaml"         
+        
         //
         FRONT_END_FILE = "/home/ubuntu/overview/k8/lab2/frontend.yaml"
         CATALOG_FILE = "/home/ubuntu/overview/k8/lab2/catalog-service.yaml"
@@ -44,6 +50,7 @@ pipeline {
                     // update the docker-compse file with the new image names
                     //sed -i 's/dtdemos\/dt-orders-customer-service:3/dtdemos\/dt-orders-customer-service:2/g' customer-service.yaml
                     //sh "sed -i 's/dtdemos\/dt-orders-frontend:1/dtdemos\/dt-orders-frontend:1/g' ${FRONT_END_FILE}"
+                    sh "cp -f ${FRONT_END_FILE_TEMPLATE_FILE} ${FRONT_END_FILE}"
                     sh "sed -i 's#REPLACE-FRONTEND-IMAGE#${env.frontendimage}#g' ${FRONT_END_FILE}"
                     //sh "sed -i 's${FRONT_END_FILE}\/${env.frontendimage}#g' ${FRONT_END_FILE}"
                     //sh "sed -i 's#REPLACE-ORDER-IMAGE#${env.orderserviceimage}#g' ${ORDER_FILE}"
