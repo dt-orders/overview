@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog
+  labels:
+    app: dt-orders
+    service: catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dt-orders
+      service: catalog
+  template:
+    metadata:
+      labels:
+        app: dt-orders
+        service: catalog
+    spec:
+      containers:
+      - name: catalog
+        image: dtdemos/dt-orders-catalog-service:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog
+  labels:
+    app: dt-orders
+    service: catalog
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: catalog
+  selector:
+    app: dt-orders
+    service: catalog
+  type: ClusterIP

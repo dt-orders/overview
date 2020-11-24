@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: dt-orders
+    service: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dt-orders
+      service: frontend
+  template:
+    metadata:
+      labels:
+        app: dt-orders
+        service: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: REPLACE-FRONTEND-IMAGE
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: dt-orders
+    service: frontend
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      name: frontend
+  selector:
+    app: dt-orders
+    service: frontend
+  type: LoadBalancer
