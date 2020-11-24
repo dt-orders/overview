@@ -57,6 +57,7 @@ pipeline {
                 script {
                 sh "kubectl -n dt-orders apply -f /home/ubuntu/overview/k8/lab2/."
                 }
+            }    
         }
         
         stage('Push Dynatrace Deployment Event') {
@@ -154,6 +155,5 @@ pipeline {
                 }
             }
         }
-    }
     }
 }
