@@ -1,5 +1,5 @@
 replicaCount: 1
-image: dt-orders-customer-service/dt-orders-frontend:1
+image: docker.io/dtdemos/dt-orders-frontend:1
 service:
     name: front-end
     externalPort: 80

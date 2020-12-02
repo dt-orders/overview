@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dt-orders-customer-service:1
+image: docker.io/dtdemos/dt-orders-customer-service:1
 service:
     name: customer-service
     externalPort: 80

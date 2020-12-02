@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dt-orders-catalog-service:1
+image: docker.io/dtdemos/dt-orders-catalog-service:1
 service:
     name: catalog-service
     externalPort: 80
