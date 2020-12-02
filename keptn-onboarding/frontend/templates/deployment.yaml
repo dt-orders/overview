@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.service.name }}{{ .Values.service.name }}
+        app: front-end
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}
     spec:
       containers:
-      - name: {{ .Values.service.name }}
+      - name: front-end
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
