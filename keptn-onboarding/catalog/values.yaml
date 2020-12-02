@@ -1,0 +1,4 @@
+image: docker.io/dtdemos/dt-orders-frontend:1
+image: docker.io/dt-orders-catalog-service:1
+image: docker.io/dtdemos/dt-orders-customer-service:1
+image: docker.io/dtdemos/dt-orders-order-service:1
