@@ -1,15 +1,2 @@
 replicaCount: 1
-image: docker.io/dtdemos/dt-orders-order-service:1
-service:
-    name: order-service
-    externalPort: 80
-    internalPort: 8080
-container:
-    name: order-service
-resources:
-    limits:
-        cpu: 100m
-        memory: 128Mi
-    requests:
-        cpu: 100m
-        memory: 128Mi        
+image: dtdemos/dt-orders-order-service:1        
