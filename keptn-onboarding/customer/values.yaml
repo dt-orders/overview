@@ -1,8 +1,5 @@
 replicaCount: 1
-image:
-    repository: dtdemos/dt-orders-customer-service
-    tag: 1
-    pullPolicy: Always
+image: docker.io/dt-orders-customer-service:1
 service:
     name: customer-service
     externalPort: 80

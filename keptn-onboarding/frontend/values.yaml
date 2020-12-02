@@ -1,8 +1,5 @@
 replicaCount: 1
-image:
-    repository: dtdemos/dt-orders-frontend
-    tag: 1
-    pullPolicy: Always
+image: dt-orders-customer-service/dt-orders-frontend:1
 service:
     name: front-end
     externalPort: 80

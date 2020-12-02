@@ -1,8 +1,5 @@
 replicaCount: 1
-image:
-    repository: dtdemos/dt-orders-order-service
-    tag: 1
-    pullPolicy: Always
+image: dt-orders-frontend/dt-orders-order-service:1
 service:
     name: order-service
     externalPort: 80
