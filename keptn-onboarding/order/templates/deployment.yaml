@@ -1,8 +1,8 @@
----
+--- 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-service
+  name: order
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -11,29 +11,23 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: order-service
+      app: order
   template:
-    metadata:
+    metadata: 
       labels:
-        app: order-service
-        app.kubernetes.io/name: {{ .Values.keptn.service }}
-        app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
-        app.kubernetes.io/component: api
-        app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
-        app.kubernetes.io/managed-by: Keptn
-        app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}
+        app: order
     spec:
       containers:
-      - name: order-service
+      - name: order
         image: "{{ .Values.image }}"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - name: http
           protocol: TCP
           containerPort: 8080
         env:
         - name: DT_CUSTOM_PROP
-          value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
+          value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
           valueFrom:
             fieldRef:
@@ -45,26 +39,31 @@ spec:
         - name: CONTAINER_IMAGE
           value: "{{ .Values.image }}"
         - name: KEPTN_PROJECT
-          value: "{{ .Chart.Name }}"
+          value: "{{ .Values.keptn.project }}"
         - name: KEPTN_STAGE
-          valueFrom:
-            fieldRef:
-              fieldPath: "metadata.namespace"
+          value: "{{ .Values.keptn.stage }}"
         - name: KEPTN_SERVICE
-          value: "order-service"
-        - name: UNLEASH_SERVER_URL
-          value: "http://unleash.unleash-dev/api"
+          value: "{{ .Values.keptn.service }}"
+        - name: KEPTN_DEPLOYMENT
+          value: "{{ .Values.keptn.deployment }}"
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
             port: 8080
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15
         resources:
           limits:
-              cpu: 1000m
-              memory: 2048Mi
+            cpu: 1000m
+            memory: 2048Mi
           requests:
-              cpu: 500m
-              memory: 1024Mi
+            cpu: 500m
+            memory: 1024Mi
