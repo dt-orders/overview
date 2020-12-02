@@ -1,2 +1,2 @@
 replicaCount: 1
-image: docker.io/dtdemos/dt-orders-frontend:1
+image: dtdemos/dt-orders-frontend:1
