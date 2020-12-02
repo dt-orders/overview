@@ -1,14 +1,14 @@
 replicaCount: 1
 image:
-    repository: dtdemos/dt-orders-catalog-service
+    repository: dtdemos/dt-orders-frontend
     tag: 1
     pullPolicy: Always
 service:
-    name: catalog-service
+    name: front-end
     externalPort: 80
     internalPort: 8080
 container:
-    name: catalog-service
+    name: front-end
 resources:
     limits:
         cpu: 100m

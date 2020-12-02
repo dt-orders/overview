@@ -1,4 +1,4 @@
 apiVersion: v1
-description: A Helm chart for service catalog
-name: catalog
+description: A Helm chart for service catalog-service
+name: catalog-service
 version: 0.1.0

@@ -1,18 +1,18 @@
 replicaCount: 1
 image:
-    repository: dtdemos/dt-orders-catalog-service
+    repository: dtdemos/dt-orders-customer-service
     tag: 1
     pullPolicy: Always
 service:
-    name: catalog-service
+    name: customer-service
     externalPort: 80
     internalPort: 8080
 container:
-    name: catalog-service
+    name: customer-service
 resources:
     limits:
         cpu: 100m
         memory: 128Mi
     requests:
         cpu: 100m
-        memory: 128Mi
+        memory: 128Mi  

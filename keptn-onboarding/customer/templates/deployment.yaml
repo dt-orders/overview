@@ -51,7 +51,7 @@ spec:
             fieldRef:
               fieldPath: "metadata.namespace"
         - name: KEPTN_SERVICE
-          value: "catalog-service"
+          value: "customer-service"
         - name: UNLEASH_SERVER_URL
           value: "http://unleash.unleash-dev/api"
         livenessProbe:
