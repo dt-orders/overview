@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.service.name }}
+  name: front-end
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -11,7 +11,7 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: catalog
+      app: front-end
   template:
     metadata:
       labels:
