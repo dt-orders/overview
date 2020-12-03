@@ -1,2 +1,2 @@
 replicaCount: 1
-image: docker.io/robjahn/keptn-orders-catalog-service:1
+image: docker.io/dtdemos/dt-orders-catalog-service:1
