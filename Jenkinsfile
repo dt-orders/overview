@@ -45,6 +45,14 @@ pipeline {
             }
         }
 
+        stage('install keptn'{
+            steps {
+                script {
+                sh "curl -sL https://get.keptn.sh | sudo -E bash"
+                sh "keptn version"
+                }
+            }
+        }
         stage('keptn send') {
             steps {
                 script {
