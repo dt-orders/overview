@@ -45,7 +45,7 @@ pipeline {
             }
         }
 
-        stage('install keptn'{
+        stage('install keptn') {
             steps {
                 script {
                 sh "curl -sL https://get.keptn.sh | sudo -E bash"
