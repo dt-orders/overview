@@ -53,7 +53,7 @@ pipeline {
                 sh "wget -O keptn.tar https://github.com/keptn/keptn/releases/download/0.7.3/0.7.3_keptn-linux.tar"
                 sh "tar -xvf keptn.tar"
                 sh "chmod +x keptn"
-                sh "mv keptn /usr/local/bin/keptn"    
+                sh "sudo mv keptn /usr/local/bin/keptn"    
                 sh "ls"
                 sh "keptn version"
                 }
