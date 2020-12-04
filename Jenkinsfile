@@ -49,11 +49,11 @@ pipeline {
             steps {
                 script {
                 sh "pwd"
-                sh "wget https://get.keptn.sh | sudo -E bash"    
-                //sh "wget https://github.com/keptn/keptn/releases/download/0.7.3/0.7.3_keptn-linux.tar"
-                //sh "tar -xvf 0.7.3_keptn-linux.tar"
-                //sh "chmod +x keptn"
-                //sh "mv keptn /usr/local/bin/keptn"    
+                //sh "wget -O  https://get.keptn.sh | sudo -E bash"    
+                sh "wget -O keptn.tar https://github.com/keptn/keptn/releases/download/0.7.3/0.7.3_keptn-linux.tar"
+                sh "tar -xvf keptn.tar"
+                sh "chmod +x keptn"
+                sh "mv keptn /usr/local/bin/keptn"    
                 sh "ls"
                 sh "keptn version"
                 }
