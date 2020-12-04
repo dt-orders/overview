@@ -3,8 +3,8 @@ pipeline {
     parameters {
         // these will be presented as build parameters 
         choice(name: 'frontend_version', choices: ['1'], description: '1 = Normal behavior')
-        choice(name: 'order_service_version', choices: ['1','2'], description: '1 = Normal behavior. 2 = 50% exception for /line URL and and n+1 back-end calls for /form.html')
-        choice(name: 'customer_service_version', choices: ['1','2'], description: '1 = Normal behavior. 2 = High Response time for /list.html')
+        choice(name: 'order_service_version', choices: ['1','2','3'], description: '1 = Normal behavior. 2 = 50% exception for /line URL and and n+1 back-end calls for /form.html')
+        choice(name: 'customer_service_version', choices: ['1','2','3'], description: '1 = Normal behavior. 2 = High Response time for /list.html')
         choice(name: 'catalog_service_version', choices: ['1'], description: '1 = Normal behavior')
     }
     environment {
@@ -23,20 +23,15 @@ pipeline {
         ORDER_FILE_TEMPLATE_FILE = "/var/jenkins_home/workspace/Test/k8/template/order-service.yaml"
         CUSTOMER_FILE_TEMPLATE_FILE = "/var/jenkins_home/workspace/Test/k8/template/customer-service.yaml"         
         
-        //
-        FRONT_END_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/frontend.yaml"
-        CATALOG_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/catalog-service.yaml"
-        ORDER_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/order-service.yaml"
-        CUSTOMER_FILE = "/var/jenkins_home/workspace/Test/k8/lab2/customer-service.yaml"    
-        
+    
         // build the docker image name using tag value passed as parameters
-        frontendimage = "dtdemos/dt-orders-frontend:${params.frontend_version}"
-        orderserviceimage = "dtdemos/dt-orders-order-service:${params.order_service_version}"
-        customerserviceimage = "dtdemos/dt-orders-customer-service:${params.customer_service_version}"
-        catalogserviceimage = "dtdemos/dt-orders-catalog-service:${params.catalog_service_version}"
+        frontendimage = "docker.io/dtdemos/dt-orders-frontend:${params.frontend_version}"
+        orderserviceimage = "docker.io/dtdemos/dt-orders-catalog-service:${params.order_service_version}"
+        customerserviceimage = "docker.io/dtdemos/dt-orders-customer-service:${params.customer_service_version}"
+        catalogserviceimage = "docker.io/dtdemos/dt-orders-catalog-service:${params.catalog_service_version}"
     }
     stages {
-        stage('configure-yaml-files') {
+        stage('configure-services') {
             steps {
                 script {
                     echo "============================================="
@@ -46,29 +41,17 @@ pipeline {
                     echo "customerserviceimage   : ${env.customerserviceimage}"
                     echo "catalogserviceimage    : ${env.catalogserviceimage}"
                     echo "============================================="
-
-                    // update the docker-compse file with the new image names
-                    //sed -i 's/dtdemos\/dt-orders-customer-service:3/dtdemos\/dt-orders-customer-service:2/g' customer-service.yaml
-                    //sh "sed -i 's/dtdemos\/dt-orders-frontend:1/dtdemos\/dt-orders-frontend:1/g' ${FRONT_END_FILE}"
-                    sh "cd cd /home/ubuntu/overview/k8/lab2"
-                    sh "pwd"
-                    sh "ls"
-                    sh "kubectl -n dt-orders apply -f ."
-                    //sh "cp -f ${FRONT_END_FILE_TEMPLATE_FILE} ${FRONT_END_FILE}"
-                    //sh "sed -i 's#REPLACE-FRONTEND-IMAGE#${env.frontendimage}#g' ${FRONT_END_FILE}"
-                    //sh "sed -i 's${FRONT_END_FILE}\/${env.frontendimage}#g' ${FRONT_END_FILE}"
-                    //sh "sed -i 's#REPLACE-ORDER-IMAGE#${env.orderserviceimage}#g' ${ORDER_FILE}"
-                    //sh "sed -i 's#REPLACE-CUSTOMER-IMAGE#${env.customerserviceimage}#g' ${CUSTOMER_FILE}"
-                    //sh "sed -i 's#REPLACE-CATALOG-IMAGE#${env.catalogserviceimage}#g' ${CATALOG_FILE}"
-                    sh "cat ${FRONT_END_FILE}"
                 }
             }
         }
 
-        stage('Kube_apply') {
+        stage('keptn send') {
             steps {
                 script {
-                sh "kubectl -n dt-orders apply -f /home/ubuntu/overview/k8/lab2/."
+                 sh "keptn send event new-artifact --project=keptnorders --service=catalog --image=docker.io/dtdemos/dt-orders-catalog-service --tag=${params.catalog_service_version}"
+                 sh "keptn send event new-artifact --project=keptnorders --service=order --image=docker.io/dtdemos/dt-orders-order-service --tag=${params.order_service_version}"
+                 sh "keptn send event new-artifact --project=keptnorders --service=customer --image=docker.io/dtdemos/dt-orders-customer-service --tag=${params.customer_service_version}"
+                 sh "keptn send event new-artifact --project=keptnorders --service=frontend --image=docker.io/dtdemos/dt-orders-frontend --tag=${params.frontend_version}"   
                 }
             }    
         }
