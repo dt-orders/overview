@@ -53,7 +53,7 @@ pipeline {
                 sh "wget -O keptn.tar https://github.com/keptn/keptn/releases/download/0.7.3/0.7.3_keptn-linux.tar"
                 sh "tar -xvf keptn.tar"
                 sh "chmod +x keptn"
-                sh "sudo mv keptn /usr/local/bin/keptn"    
+                sh "mv keptn /tmp/keptn"    
                 sh "ls"
                 sh "keptn version"
                 }
@@ -62,10 +62,10 @@ pipeline {
         stage('keptn send') {
             steps {
                 script {
-                 sh "keptn send event new-artifact --project=keptnorders --service=catalog --image=docker.io/dtdemos/dt-orders-catalog-service --tag=${params.catalog_service_version}"
-                 sh "keptn send event new-artifact --project=keptnorders --service=order --image=docker.io/dtdemos/dt-orders-order-service --tag=${params.order_service_version}"
-                 sh "keptn send event new-artifact --project=keptnorders --service=customer --image=docker.io/dtdemos/dt-orders-customer-service --tag=${params.customer_service_version}"
-                 sh "keptn send event new-artifact --project=keptnorders --service=frontend --image=docker.io/dtdemos/dt-orders-frontend --tag=${params.frontend_version}"   
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=catalog --image=docker.io/dtdemos/dt-orders-catalog-service --tag=${params.catalog_service_version}"
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=order --image=docker.io/dtdemos/dt-orders-order-service --tag=${params.order_service_version}"
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=customer --image=docker.io/dtdemos/dt-orders-customer-service --tag=${params.customer_service_version}"
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=frontend --image=docker.io/dtdemos/dt-orders-frontend --tag=${params.frontend_version}"   
                 }
             }    
         }
