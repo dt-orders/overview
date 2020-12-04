@@ -48,7 +48,9 @@ pipeline {
         stage('install keptn') {
             steps {
                 script {
-                sh "curl -sL https://get.keptn.sh | sudo -E bash"
+                sh "pwd"                
+                sh "git pull https://github.com/keptn/keptn/releases/download/0.7.3/0.7.3_keptn-linux.tar"    
+                sh "ls"
                 sh "keptn version"
                 }
             }
