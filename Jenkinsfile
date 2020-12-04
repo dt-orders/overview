@@ -55,7 +55,7 @@ pipeline {
                 sh "chmod +x keptn"
                 sh "mv keptn /tmp/keptn"    
                 sh "ls"
-                sh "keptn version"
+                sh "/tmp/keptn version"
                 }
             }
         }
