@@ -11,6 +11,8 @@ pipeline {
         // stored as jenkins credentials. Values are masked
         DT_URL = "https://${env.DT_ACCOUNTID}"
         DT_TOKEN = "${env.DT_API_TOKEN}"
+        KEPTN_TOKEN = "${env.KEPTN_API_TOKEN}"
+        KEPTN_ENDPOINT = "${env.KEPTN_ENDPOINT}"
 
         // file locations
         DOCKER_COMPOSE_TEMPLATE_FILE = "/home/ubuntu/workshop/lab4/docker-compose.template"
@@ -56,6 +58,8 @@ pipeline {
                 sh "mv keptn /tmp/keptn"    
                 sh "ls"
                 sh "/tmp/keptn version"
+                sh "/tmp/keptn install --use-case=continuous-delivery"
+                sh "/tmp/keptn auth --endpoint=${KEPTN_ENDPOINT} --api-token=${KEPTN_TOKEN}"
                 }
             }
         }
