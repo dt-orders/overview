@@ -58,6 +58,7 @@ pipeline {
                 sh "mv keptn /tmp/keptn"    
                 sh "ls"
                 sh "/tmp/keptn version"
+                sh "kubectl config current-context"    
                 sh "/tmp/keptn install --use-case=continuous-delivery"
                 sh "/tmp/keptn auth --endpoint=${KEPTN_ENDPOINT} --api-token=${KEPTN_TOKEN}"
                 }
