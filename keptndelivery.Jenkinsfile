@@ -6,47 +6,47 @@ node {
         parameters([
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false), 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false), 
-         string(defaultValue: 'order', description: 'Name of the service you provide a configuration change for', name: 'Service', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service:1', description: '(1,2,3) Name of the service you provide a configuration change for', name: 'Image', trim: false),
-         string(defaultValue: 'customer', description: 'Name of the service you provide a configuration change for', name: 'Service2', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: '(1,2,3) Name of the service you provide a configuration change for', name: 'Image2', trim: false),
-         string(defaultValue: 'frontend', description: 'Name of the service you provide a configuration change for', name: 'Service3', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Name of the service you provide a configuration change for', name: 'Image3', trim: false),
-         string(defaultValue: 'catalog', description: 'Name of the service you provide a configuration change for', name: 'Service4', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Name of the service you provide a configuration change for', name: 'Image4', trim: false),
-         string(defaultValue: '60', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
+         string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false),
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service:1', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false),
+         string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false),
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false),
+         string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false),
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Tag:1', name: 'frontendImage', trim: false),
+         string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false),
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false),
+         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
         ])
     ])
 
-    stage('Trigger Delivery') {
+    stage('Trigger orderService') {
         echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image}"
 
         // send deployment finished to trigger tests
-        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.Service}", stage:"${params.Stage}", image:"${params.Image}" 
+        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
         String keptn_bridge = env.KEPTN_BRIDGE
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }
-    stage('Trigger Delivery2') {
+    stage('Trigger customerService') {
         echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
 
         // send deployment finished to trigger tests
-        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}", image:"${params.Image2}" 
+        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
         String keptn_bridge = env.KEPTN_BRIDGE
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }   
-    stage('Trigger Frontend') {
+    stage('Trigger FrontendService') {
         echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
 
         // send deployment finished to trigger tests
-        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}", image:"${params.Image3}" 
+        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
         String keptn_bridge = env.KEPTN_BRIDGE
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }  
-    stage('Trigger Catalog') {
+    stage('Trigger CatalogService') {
         echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
 
         // send deployment finished to trigger tests
-        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}", image:"${params.Image4}" 
+        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
         String keptn_bridge = env.KEPTN_BRIDGE
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }         
