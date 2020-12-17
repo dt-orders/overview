@@ -33,15 +33,7 @@ node {
         def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
         String keptn_bridge = env.KEPTN_BRIDGE
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
-    }   
-    stage('Trigger FrontendService') {
-        echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
-
-        // send deployment finished to trigger tests
-        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
-        String keptn_bridge = env.KEPTN_BRIDGE
-        echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
-    }  
+    }    
     stage('Trigger CatalogService') {
         echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
 
@@ -49,7 +41,15 @@ node {
         def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
         String keptn_bridge = env.KEPTN_BRIDGE
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
-    }         
+    }  
+    stage('Trigger FrontendService') {
+        echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
+
+        // send deployment finished to trigger tests
+        def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
+        String keptn_bridge = env.KEPTN_BRIDGE
+        echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+    }          
     stage('Wait for Result') {
         waitTime = 0
         if(params.WaitForResult?.isInteger()) {
