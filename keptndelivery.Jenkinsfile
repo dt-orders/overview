@@ -19,7 +19,7 @@ node {
     ])
 
     stage('Trigger orderService') {
-        echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image}"
+        echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
 
         // send deployment finished to trigger tests
         def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
@@ -27,7 +27,7 @@ node {
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }
     stage('Trigger customerService') {
-        echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
+        echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
 
         // send deployment finished to trigger tests
         def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
@@ -35,7 +35,7 @@ node {
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }    
     stage('Trigger CatalogService') {
-        echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
+        echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
 
         // send deployment finished to trigger tests
         def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
@@ -43,7 +43,7 @@ node {
         echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
     }  
     stage('Trigger FrontendService') {
-        echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
+        echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
 
         // send deployment finished to trigger tests
         def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
