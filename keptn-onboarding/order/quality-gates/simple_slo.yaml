@@ -12,7 +12,7 @@ objectives:
           - "<600"   # absolute values only require a logical operator
     warning:     # if the response time is below 800ms, the result should be a warning
       - criteria:
-          - "<=1000"
+          - "<=800"
   - sli: throughput
   - sli: error_rate
     weight: 2
