@@ -3,6 +3,16 @@
 # Usage:
 # ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn-project simpleproject
 
+source ~/keptn-in-a-box/resources/dynatrace/utils.sh
+
+cd ~/keptn-in-a-box/resources/dynatrace
+
+readCredsFromFile
+printVariables
+
+echo $DT_TENANT
+echo $DT_API_TOKEN
+
 if [[ -z "$DT_TENANT" || -z "$DT_API_TOKEN" ]]; then
   echo "DT_TENANT & DT_API_TOKEN MUST BE SET!!"
   exit 1
