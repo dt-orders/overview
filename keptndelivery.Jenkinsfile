@@ -89,7 +89,7 @@ pipeline {
             		script { 
                         
        					if(params.WaitForResult?.isInteger()) {
-           					waitTime = params.WaitForResult.toInteger()
+           					def waitTime = params.WaitForResult.toInteger()
        					}
 
        					if(waitTime > 0) {
