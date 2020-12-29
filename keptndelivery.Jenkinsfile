@@ -3,7 +3,8 @@ def keptn = new sh.keptn.Keptn()
 
 pipeline {
 
-node {
+    agent any
+
     properties([
         parameters([
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false), 
@@ -86,5 +87,5 @@ node {
        		}
 	}    
   }
-}  
+ 
 } 
