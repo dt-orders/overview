@@ -31,10 +31,10 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
-        			String keptn_bridge = env.KEPTN_BRIDGE
+        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
-        			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		}	
     		}
     		stage('Trigger customerService') {
@@ -44,10 +44,10 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
-        			String keptn_bridge = env.KEPTN_BRIDGE
-        			}
-        			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+        			}	
 				} 
     		}    
     		stage('Trigger CatalogService') {
@@ -57,10 +57,10 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
-        			String keptn_bridge = env.KEPTN_BRIDGE
+        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
-        			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		 }
     		}  
     		stage('Trigger FrontendService') {
@@ -70,15 +70,16 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
-        			String keptn_bridge = env.KEPTN_BRIDGE
+        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
-        			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		 }	
     		}          
 
     //}
     stage('Wait for Result') {
+          steps {  
        		waitTime = 0
        		if(params.WaitForResult?.isInteger()) {
            		waitTime = params.WaitForResult.toInteger()
@@ -86,11 +87,14 @@ pipeline {
 
        		if(waitTime > 0) {
            		echo "Waiting until Keptn is done and returns the results"
+           		script {
            		def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
            		echo "${result}"
+           		}
        		} else {
            		echo "Not waiting for results. Please check the Keptns bridge for the details!"
        		}
+       	  }	
 	}    
   }
  
