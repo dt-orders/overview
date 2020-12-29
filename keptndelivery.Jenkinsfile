@@ -4,8 +4,12 @@ def keptn = new sh.keptn.Keptn()
 pipeline {
 
     agent any
+    
+    environment {
+    	waitTime = 0
+    }
 
-        parameters {
+    parameters {
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
@@ -18,9 +22,9 @@ pipeline {
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"])
-        }
+    }
 
-  stages {
+    stages {
 
     //stage('Publish') {
  
@@ -78,28 +82,26 @@ pipeline {
     		}          
 
     //}
-    stage('Wait for Result') {
+           stage('Wait for Result') {
           
-          steps { 
+                 steps { 
             
-            
-            script { 
-            waitTime = 0
-            
-       			if(params.WaitForResult?.isInteger()) {
-           			waitTime = params.WaitForResult.toInteger()
-       			}
+            		script { 
+                        
+       					if(params.WaitForResult?.isInteger()) {
+           					waitTime = params.WaitForResult.toInteger()
+       					}
 
-       			if(waitTime > 0) {
-           			echo "Waiting until Keptn is done and returns the results"
-           			def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
-           			echo "${result}"
-       			} else {
-           		echo "Not waiting for results. Please check the Keptns bridge for the details!"
-       			}
-       	  	}	
-       	  }
-	  }    
-  }
+       					if(waitTime > 0) {
+           					echo "Waiting until Keptn is done and returns the results"
+           					def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
+           					echo "${result}"
+       					} else {
+           					echo "Not waiting for results. Please check the Keptns bridge for the details!"
+       					}
+       	  			}	
+       	  		}
+	  		}    
+  	}
  
 } 
