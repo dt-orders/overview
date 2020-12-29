@@ -30,8 +30,10 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
 
         			// send deployment finished to trigger tests
+        			script {
         			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
         			String keptn_bridge = env.KEPTN_BRIDGE
+        			}
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		}	
     		}
@@ -41,8 +43,10 @@ pipeline {
        				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
 
         			// send deployment finished to trigger tests
+        			script {
         			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
         			String keptn_bridge = env.KEPTN_BRIDGE
+        			}
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
 				} 
     		}    
@@ -52,8 +56,10 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
 
         			// send deployment finished to trigger tests
+        			script {
         			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
         			String keptn_bridge = env.KEPTN_BRIDGE
+        			}
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		 }
     		}  
@@ -63,8 +69,10 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
 
         			// send deployment finished to trigger tests
+        			script {
         			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
         			String keptn_bridge = env.KEPTN_BRIDGE
+        			}
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		 }	
     		}          
