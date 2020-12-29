@@ -5,7 +5,6 @@ pipeline {
 
     agent any
 
-    options([
         parameters([
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false), 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false), 
@@ -20,7 +19,6 @@ pipeline {
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
          choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"]),
         ])
-    ])
 
   stages {
 
