@@ -5,7 +5,7 @@ pipeline {
 
     agent any
 
-    properties([
+    options([
         parameters([
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false), 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false), 
@@ -25,7 +25,7 @@ pipeline {
   stages {
 
     stage("Publish") {
-        parallel {  
+ 
     		stage('Trigger orderService') {
     			when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "order" } }
     			 steps {
@@ -70,7 +70,7 @@ pipeline {
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		 }	
     		}          
-        }
+
     }
     stage('Wait for Result') {
        		waitTime = 0
