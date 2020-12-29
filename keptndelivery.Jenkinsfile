@@ -26,14 +26,14 @@ pipeline {
  
     		stage('Trigger orderService') {
     			when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "order" } }
-    			 //steps {
+    			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
 
         			// send deployment finished to trigger tests
         			def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
         			String keptn_bridge = env.KEPTN_BRIDGE
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
-        		//}	
+        		}	
     		}
     		stage('Trigger customerService') {
     		    when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "customer" } }
