@@ -79,23 +79,25 @@ pipeline {
 
     //}
     stage('Wait for Result') {
-          waitTime = 0
+          
           steps { 
+            waitTime = 0
+            
             script { 
-       		if(params.WaitForResult?.isInteger()) {
-           		waitTime = params.WaitForResult.toInteger()
-       		}
+       			if(params.WaitForResult?.isInteger()) {
+           			waitTime = params.WaitForResult.toInteger()
+       			}
 
-       		if(waitTime > 0) {
-           		echo "Waiting until Keptn is done and returns the results"
-           		def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
-           		echo "${result}"
-       		} else {
+       			if(waitTime > 0) {
+           			echo "Waiting until Keptn is done and returns the results"
+           			def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
+           			echo "${result}"
+       			} else {
            		echo "Not waiting for results. Please check the Keptns bridge for the details!"
-       		}
-       	  }	
-       	}
-	}    
+       			}
+       	  	}	
+       	  }
+	  }    
   }
  
 } 
