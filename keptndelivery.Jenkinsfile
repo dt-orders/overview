@@ -10,7 +10,7 @@ pipeline {
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service:1', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false)
-         string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false),
+         string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
          string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Tag:1', name: 'frontendImage', trim: false)
