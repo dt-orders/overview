@@ -81,9 +81,11 @@ pipeline {
     stage('Wait for Result') {
           
           steps { 
-            waitTime = 0
+            
             
             script { 
+            waitTime = 0
+            
        			if(params.WaitForResult?.isInteger()) {
            			waitTime = params.WaitForResult.toInteger()
        			}
