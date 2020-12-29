@@ -6,7 +6,7 @@ pipeline {
     agent any
     
     environment {
-    	waitTime = 0
+    	def waitTime = 0
     }
 
     parameters {
