@@ -29,7 +29,7 @@ pipeline {
     //stage('Publish') {
  
     		stage('Trigger orderService') {
-    			when { expression { param.DEPLOY_TO == "all" } }
+    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
 
@@ -42,7 +42,7 @@ pipeline {
         		}	
     		}
     		stage('Trigger customerService') {
-    		    when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "customer" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer" } }
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
 
@@ -55,7 +55,7 @@ pipeline {
 				} 
     		}    
     		stage('Trigger CatalogService') {
-    		    when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "catalog" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
 
@@ -68,7 +68,7 @@ pipeline {
         		 }
     		}  
     		stage('Trigger FrontendService') {
-    		    when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "frontend" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
 
