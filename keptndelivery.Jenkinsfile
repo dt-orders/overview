@@ -22,7 +22,7 @@ pipeline {
 
   stages {
 
-    stage('Publish') {
+    //stage('Publish') {
  
     		stage('Trigger orderService') {
     			when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "order" } }
@@ -69,7 +69,7 @@ pipeline {
         		 }	
     		}          
 
-    }
+    //}
     stage('Wait for Result') {
        		waitTime = 0
        		if(params.WaitForResult?.isInteger()) {
