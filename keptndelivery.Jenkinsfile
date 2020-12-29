@@ -19,6 +19,7 @@ node {
         ])
     ])
 
+  stages {
 
     stage("Publish") {
         parallel {  
@@ -82,4 +83,5 @@ node {
            		echo "Not waiting for results. Please check the Keptns bridge for the details!"
        		}
 	}    
-}
+  }
+}   
