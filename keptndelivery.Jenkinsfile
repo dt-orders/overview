@@ -15,12 +15,12 @@ node {
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false),
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false),
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
-         choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"])
+         choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"]),
         ])
     ])
 
 
-    stage() {
+    stage("Publish") {
         parallel {  
     		stage('Trigger orderService') {
     			when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "order" } }
@@ -66,20 +66,20 @@ node {
         			echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         		 }	
     		}          
-    		stage('Wait for Result') {
-        		waitTime = 0
-        		if(params.WaitForResult?.isInteger()) {
-            		waitTime = params.WaitForResult.toInteger()
-        		}
+        }
+    }
+    stage('Wait for Result') {
+       		waitTime = 0
+       		if(params.WaitForResult?.isInteger()) {
+           		waitTime = params.WaitForResult.toInteger()
+       		}
 
-        		if(waitTime > 0) {
-            		echo "Waiting until Keptn is done and returns the results"
-            		def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
-            		echo "${result}"
-        		} else {
-            		echo "Not waiting for results. Please check the Keptns bridge for the details!"
-        		}
-    		}
-    }
-    }
+       		if(waitTime > 0) {
+           		echo "Waiting until Keptn is done and returns the results"
+           		def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:waitTime
+           		echo "${result}"
+       		} else {
+           		echo "Not waiting for results. Please check the Keptns bridge for the details!"
+       		}
+	}    
 }
