@@ -26,8 +26,6 @@ pipeline {
 
     stages {
 
-    //stage('Publish') {
- 
     		stage('Trigger orderService') {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
@@ -81,7 +79,6 @@ pipeline {
         		 }	
     		}          
 
-    //}
            stage('Wait for Result') {
           
                  steps { 
