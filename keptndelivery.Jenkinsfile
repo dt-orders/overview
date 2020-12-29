@@ -5,20 +5,20 @@ pipeline {
 
     agent any
 
-        parameters([
-         string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false), 
-         string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false), 
-         string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service:1', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false),
+        parameters {
+         string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
+         string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
+         string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service:1', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false)
          string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false),
-         string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Tag:1', name: 'frontendImage', trim: false),
-         string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false),
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false),
-         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
-         choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"]),
-        ])
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
+         string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Tag:1', name: 'frontendImage', trim: false)
+         string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false)
+         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
+         choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"])
+        }
 
   stages {
 
