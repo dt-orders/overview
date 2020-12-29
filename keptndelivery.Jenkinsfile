@@ -1,6 +1,8 @@
 @Library('keptn-library')_
 def keptn = new sh.keptn.Keptn()
 
+pipeline {
+
 node {
     properties([
         parameters([
@@ -84,4 +86,5 @@ node {
        		}
 	}    
   }
-}   
+}  
+} 
