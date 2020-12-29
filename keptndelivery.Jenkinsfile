@@ -21,7 +21,7 @@ pipeline {
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: "DEPLOY_TO", choices: ["all", "order", "catalog", "frontend","customer"])
+         choice(name: 'DEPLOY_TO', choices: ["all", "order", "catalog", "frontend","customer"])
     }
 
     stages {
@@ -29,7 +29,7 @@ pipeline {
     //stage('Publish') {
  
     		stage('Trigger orderService') {
-    			when { expression { param.DEPLOY_TO == "all" || param.DEPLOY_TO == "order" } }
+    			when { expression { param.DEPLOY_TO == "all" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
 
