@@ -1,0 +1,22 @@
+version: '3'
+services:
+  front-end:
+    hostname: frontend
+    image: dtdemos/dt-orders-frontend:1
+    ports:
+      - 80:8080
+    environment:
+      - CUSTOMER_URL=http://172.17.0.1:8080
+      - CATALOG_URL=http://172.17.0.1:8080
+      - ORDER_URL=http://172.17.0.1:8080
+      - MONOLITH=true
+  backend-service:
+    hostname: backend
+    image: dtdemos/dt-orders-backend-monolith:1
+    ports:
+      - 8080:8080
+    environment:
+      - CUSTOMER_SERVICE_DOMAIN=172.17.0.1
+      - CUSTOMER_SERVICE_PORT=8080
+      - CATALOG_SERVICE_DOMAIN=172.17.0.1
+      - CATALOG_SERVICE_PORT=8080

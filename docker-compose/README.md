@@ -14,6 +14,12 @@ You can adjust the `docker-compose.yaml` for alternate ports and images names to
 docker-compose up -d
 ```
 
+For running the backend monolith setup, run this command
+
+```
+docker-compose -f docker-compose-monolith.yaml up -d
+```
+
 4 . Check that frontend and service containers are running
 
 ```
@@ -26,6 +32,12 @@ docker-compose ps
 
 ```
 docker-compose down
+```
+
+If ran the backend monolith setup, run this command
+
+```
+docker-compose -f docker-compose-monolith.yaml down
 ```
 
 7 . To change image versions, just edit the `docker-compose.yaml` and run `docker-compose up` again.
