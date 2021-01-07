@@ -1,43 +1,55 @@
-# Deployment using docker-compose
+# Overview 
 
-This will setup the application using docker-compose.
+This folder contains the script and chart files to deploy the dt-orders application using docker-compose.  
 
-1 . Have a host with [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) installed on it
+Once the application is running, see these repos to create traffic against the running application
+* [Browser traffic](https://github.com/dt-orders/browser-traffic)
+* [Load traffic](https://github.com/dt-orders/load-traffic)
+
+# Prerequisites
+
+1 . Have a host with [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) installed on it
 
 2 . Clone this repo 
 
-3 . Start the application
+# Start the application
 
-You can adjust the `docker-compose.yaml` for alternate ports and images names to meet your needs. But, you can just run `docker-compose up` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
+1. You can adjust the `docker-compose.yaml` for alternate ports and images names to meet your needs. But, you can just run `docker-compose up` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
 
-```
-docker-compose up -d
-```
+    ```
+    docker-compose up -d
+    ```
 
-For running the backend monolith setup, run this command
+2. For running the backend monolith setup, run this command
 
-```
-docker-compose -f docker-compose-monolith.yaml up -d
-```
+    ```
+    docker-compose -f docker-compose-monolith.yaml up -d
+    ```
 
-4 . Check that frontend and service containers are running
+# Check that frontend and service containers are running
 
-```
-docker-compose ps
-```
+1. Verify pods
 
-5 . Open the front-end in a browser for the app `http://localhost`
+    ```
+    docker-compose ps
+    ```
 
-6 . Stop the application
+2. Open the front-end in a browser for the app `http://localhost` or the public IP of the host it was run on
 
-```
-docker-compose down
-```
+# Stop the application
 
-If ran the backend monolith setup, run this command
+1. Run this command to stop
 
-```
-docker-compose -f docker-compose-monolith.yaml down
-```
+    ```
+    docker-compose down
+    ```
 
-7 . To change image versions, just edit the `docker-compose.yaml` and run `docker-compose up` again.
+2. If ran the backend monolith setup, run this command
+
+    ```
+    docker-compose -f docker-compose-monolith.yaml down
+    ```
+
+# Change image versions
+
+Edit the `docker-compose.yaml` and run `docker-compose up` again.

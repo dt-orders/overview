@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-traffic
+  labels:
+    app: dt-orders
+    service: load-traffic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dt-orders
+      service: load-traffic
+  template:
+    metadata:
+      labels:
+        app: dt-orders
+        service: load-traffic
+    spec:
+      containers:
+      - name: load-traffic
+        image: dtdemos/dt-orders-load:1
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_URL
+          value: 'REPLACE_SERVER_URL'
+        - name: NUM_LOOPS
+          value: 'REPLACE_NUM_LOOPS'
+        - name: TEST_DEBUG
+          value: 'REPLACE_TEST_DEBUG'

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  labels:
+    app: dt-orders
+    service: browser-traffic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dt-orders
+      service: browser-traffic
+  template:
+    metadata:
+      labels:
+        app: dt-orders
+        service: browser-traffic
+    spec:
+      containers:
+      - name: browser-traffic
+        image: dtdemos/dt-orders-browser:1
+        imagePullPolicy: Always
+        env:
+        - name: APP_URL
+          value: http://frontend
+        - name: SCRIPT_NUM_LOOPS
+          value: 1

@@ -1,28 +1,28 @@
-# Deployment using Kubernetes
+# Overview 
+
+This folder contains the script and chart files to deploy the dt-orders application and traffic generators.
+
+# Prerequisites
 
 1 . Create a Kubernetes cluster and configure kubectl to connect to it. 
 
 2 . Have a Dynatrace tenant and install [Dynatrace OneAgent Operator](https://www.dynatrace.com/support/help/technology-support/cloud-platforms/kubernetes/deploy-oneagent-k8/)  
 
-3 . Grant [Dynatrace viewer role to k8 service accounts](https://www.dynatrace.com/support/help/shortlink/kubernetes-tagging#grant-viewer-role-to-service-accounts) with this command:
+# Deploy Application
 
-```
-kubectl -n dt-orders create rolebinding default-view --clusterrole=view --serviceaccount=dt-orders:default
-```
-
-4 . Clone this repo and run these commands
+1 . Clone this repo and run these commands
 ```
 # create the namespace
 kubectl create ns dt-orders
 
 # apply app chart files
-kubectl -n dt-orders apply -f .
-
-# apply just one for example:
-kubectl -n dt-orders apply front-end.yaml
+kubectl -n dt-orders apply -f catalog-service.yaml
+kubectl -n dt-orders apply -f customer-service.yaml
+kubectl -n dt-orders apply -f order-service.yaml
+kubectl -n dt-orders apply -f frontend.yaml
 ```
 
-5 . Monitor pods.  You should see this:
+2 . Monitor pods.  You should see this:
 ```
 kubectl -n dt-orders get pods
 NAME                        READY   STATUS    RESTARTS   AGE
@@ -32,7 +32,7 @@ frontend-8699dd574f-vcwzn   1/1     Running   0          6m47s
 order-657b698d96-vhw5m      1/1     Running   0          6m47s
 ```
 
-6 . Monitor services.  This is example from AWS EKS
+3 . Monitor services.  This is example from AWS EKS
 ```
 kubectl -n dt-orders get svc
 NAME       TYPE           CLUSTER-IP       EXTERNAL-IP                       PORT(S)          AGE
@@ -42,7 +42,7 @@ frontend   LoadBalancer   10.100.247.102   xxx.eu-west-3.elb.amazonaws.com   80:
 order      ClusterIP      10.100.104.247   <none>                            8080:32667/TCP   38m
 ```
 
-7 . Get the external URL for the frontend
+4 . Get the external URL for the frontend
 
 This may vary by the k8 installation you setup
 
@@ -54,6 +54,33 @@ echo http://$(kubectl -n dt-orders get service frontend -o jsonpath="{.status.lo
 echo http://$(kubectl -n dt-orders get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].ip")
 ```
 
-8 . Open the frontend URL in a browser
+5 . Open the frontend URL in a browser
 
-9 . To change image versions, just edit the service `yaml` file and run `kubectl -n dt-orders apply <SERVICE YAML FILE>` and the monitor the new pod being created.
+# Change image versions
+
+Just edit the service `yaml` file `image` name and rerun `kubectl -n dt-orders apply <SERVICE YAML FILE>` and the monitor the new pod being created.
+
+# Remove application
+
+One option is to just remove the namespace
+
+```
+kubectl delete ns dt-orders
+```
+
+Or you can just remove each deployment that will terminate the pods.
+
+```
+kubectl -n dt-orders delete deploy frontend
+kubectl -n dt-orders delete deploy catalog
+kubectl -n dt-orders delete deploy customer
+kubectl -n dt-orders delete deploy order
+```
+
+# Traffic generators
+
+There are two scripts that can be run independently to make create traffic.
+* Browser traffic - use the `start-browser.sh` and `stop-browser.sh`
+* Load traffic - use the `start-load.sh` and `stop-load.sh`
+
+Monitor the pods with the `kubectl -n dt-orders get pods` command
