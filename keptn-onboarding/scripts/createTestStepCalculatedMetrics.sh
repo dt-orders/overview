@@ -32,7 +32,7 @@ echo "============================================================="
 echo "About to create 1 service metrics for Test Integrations [$1]$2:$3 on Dynatrace Tenant: $DT_TENANT!"
 echo "============================================================="
 echo "Usage: ./createTestStepCalculatedMetrics CONTEXT KEY VALUE"
-read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
+#read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
 
 ####################################################################################################################
 ## createCalculatedTestMetric(METRICKEY, METRICNAME, BASEMETRIC, METRICUNIT)
