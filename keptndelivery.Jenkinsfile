@@ -25,7 +25,20 @@ pipeline {
     }
 
     stages {
+        
+        	stage('Trigger FrontendService') {
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend" } }
+    		     steps {
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
 
+        			// send deployment finished to trigger tests
+        			script {
+        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+        			}
+        		 }	
+    		} 
     		stage('Trigger orderService') {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
@@ -65,19 +78,7 @@ pipeline {
         			}
         		 }
     		}  
-    		stage('Trigger FrontendService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend" } }
-    		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
-
-        			// send deployment finished to trigger tests
-        			script {
-        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
-        				String keptn_bridge = env.KEPTN_BRIDGE
-        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
-        			}
-        		 }	
-    		}          
+        
 
            stage('Wait for Result') {
           
