@@ -22,8 +22,8 @@ spec:
         image: dtdemos/dt-orders-load:1
         imagePullPolicy: Always
         env:
-        - name: SERVER_URL
-          value: 'REPLACE_SERVER_URL'
+        - name: HOSTNAME
+          value: 'REPLACE_HOSTNAME'
         - name: NUM_LOOPS
           value: 'REPLACE_NUM_LOOPS'
         - name: TEST_DEBUG
