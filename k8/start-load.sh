@@ -14,22 +14,22 @@ then
     TEST_DEBUG=false
 fi
 
-SERVER_URL=$3
-if [ -z "$SERVER_URL" ]
+THEHOST=$3
+if [ -z "$THEHOST" ]
 then
     SERVER_URL="frontend"
 fi
 
 echo "=================================================="
 echo "Starting load traffic"
-echo "SERVER_URL : $SERVER_URL"
+echo "HOSTNAME   : $THEHOST"
 echo "NUM_LOOPS  : $NUM_LOOPS"
 echo "TEST_DEBUG : $TEST_DEBUG"
 echo "=================================================="
 rm load-traffic.yaml
 cp load-traffic.template load-traffic.yaml
 
-sed -i 's|REPLACE_SERVER_URL|'$SERVER_URL'|g' load-traffic.yaml
+sed -i 's|REPLACE_HOSTNAME|'$THEHOST'|g' load-traffic.yaml
 sed -i 's|REPLACE_NUM_LOOPS|'$NUM_LOOPS'|g' load-traffic.yaml
 sed -i 's|REPLACE_TEST_DEBUG|'$TEST_DEBUG'|g' load-traffic.yaml
 
