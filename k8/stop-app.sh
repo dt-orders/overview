@@ -20,9 +20,11 @@ echo "----------------------------------------------------------"
 kubectl -n dt-orders delete deploy customer
 
 echo "----------------------------------------------------------"
-echo "kubectl -n dt-orders delete deploy frontend"
+echo "kubectl -n dt-orders delete deploy order"
 echo "----------------------------------------------------------"
-kubectl -n dt-orders delete deploy frontend
+kubectl -n dt-orders delete deploy order
+
+sleep 10
 
 echo "----------------------------------------------------------"
 echo "kubectl -n dt-orders get pods"
