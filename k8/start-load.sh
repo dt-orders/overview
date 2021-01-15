@@ -1,7 +1,5 @@
 #!/bin/bash
 
-clear
-
 NUM_LOOPS=$1
 if [ -z "$NUM_LOOPS" ]
 then
@@ -17,11 +15,11 @@ fi
 THEHOST=$3
 if [ -z "$THEHOST" ]
 then
-    SERVER_URL="frontend"
+    THEHOST="frontend"
 fi
 
 echo "=================================================="
-echo "Starting load traffic"
+echo "Starting load traffic on k8"
 echo "HOSTNAME   : $THEHOST"
 echo "NUM_LOOPS  : $NUM_LOOPS"
 echo "TEST_DEBUG : $TEST_DEBUG"
@@ -33,12 +31,12 @@ sed -i 's|REPLACE_HOSTNAME|'$THEHOST'|g' load-traffic.yaml
 sed -i 's|REPLACE_NUM_LOOPS|'$NUM_LOOPS'|g' load-traffic.yaml
 sed -i 's|REPLACE_TEST_DEBUG|'$TEST_DEBUG'|g' load-traffic.yaml
 
-echo "=================================================="
+echo "--------------------------------------------------"
 echo "kubectl -n dt-orders apply -f load-traffic.yaml"
-echo "=================================================="
+echo "--------------------------------------------------"
 kubectl -n dt-orders apply -f load-traffic.yaml
 
-echo "=================================================="
+echo "--------------------------------------------------"
 echo "kubectl -n dt-orders get pods"
-echo "=================================================="
+echo "--------------------------------------------------"
 kubectl -n dt-orders get pods

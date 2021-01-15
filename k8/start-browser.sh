@@ -1,7 +1,5 @@
 #!/bin/bash
 
-clear
-
 SCRIPT_NUM_LOOPS=$1
 if [ -z "$SCRIPT_NUM_LOOPS" ]
 then
@@ -13,6 +11,10 @@ if [ -z "$APP_URL" ]
 then
     APP_URL="http://frontend"
 fi
+
+echo "=========================================================="
+echo "Starting browser traffic on k8"
+echo "=========================================================="
 
 echo "=================================================="
 echo "Starting browser traffic"
