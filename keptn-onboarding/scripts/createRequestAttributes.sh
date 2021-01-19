@@ -62,7 +62,7 @@ function createRequestAttribute() {
 
   echo ""
   echo "Creating Metric $METRICNAME($METRICNAME)"
-  echo "PUT https://$DT_TENANT/api/config/v1/cservice/requestAttributes"
+  echo "POST https://$DT_TENANT/api/config/v1/cservice/requestAttributes"
   echo "$PAYLOAD"
   curl -X PUT \
           "https://$DT_TENANT/api/config/v1/service/requestAttributes" \
