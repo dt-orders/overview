@@ -118,7 +118,7 @@ createCalculatedTestMetric "calc:service.teststepresponsetime" "Test Step Respon
 ###########################################################################
 # Second we create Test Step Service Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "COUNT"
 
 ###########################################################################
 # Third we create Test Step Database Calls
