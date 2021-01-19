@@ -123,7 +123,7 @@ createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Servic
 ###########################################################################
 # Third we create Test Step Database Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "COUNT"
 
 ###########################################################################
 # Fourth we create Test Step Failurerate
