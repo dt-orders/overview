@@ -25,12 +25,9 @@ echo "Usage: ./createRequestAttributes"
 #read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
 
 ####################################################################################################################
-## createCalculatedTestMetric(METRICKEY, METRICNAME, BASEMETRIC, METRICUNIT)
+## createRequestAttribute(ATTRIBUTENAME)
 ####################################################################################################################
-# Example: createCalculatedTestMetric "calc:service.teststepresponsetime", "Test Step Response Time", "RESPONSE_TIME", "MICRO_SECOND", "CONTEXTLESS", "keptn_project", "simpleproject")
-# Full List of possible BASEMETRICS: CPU_TIME, DATABASE_CHILD_CALL_COUNT, DATABASE_CHILD_CALL_TIME, EXCEPTION_COUNT, FAILED_REQUEST_COUNT, FAILED_REQUEST_COUNT_CLIENT, FAILURE_RATE, FAILURE_RATE_CLIENT, HTTP_4XX_ERROR_COUNT, HTTP_4XX_ERROR_COUNT_CLIENT, HTTP_5XX_ERROR_COUNT, HTTP_5XX_ERROR_COUNT_CLIENT, IO_TIME, LOCK_TIME, NON_DATABASE_CHILD_CALL_COUNT, NON_DATABASE_CHILD_CALL_TIME, REQUEST_ATTRIBUTE, REQUEST_COUNT, RESPONSE_TIME, RESPONSE_TIME_CLIENT, SUCCESSFUL_REQUEST_COUNT, SUCCESSFUL_REQUEST_COUNT_CLIENT, TOTAL_PROCESSING_TIME, WAIT_TIME
-# Possible METRICUNIT values: MILLI_SECOND, MICRO_SECOND, COUNT, PERCENT 
-# Possible DIMENSION_AGGREGATE: AVERAGE, COUNT, MAX, MIN, OF_INTEREST_RATIO, OTHER_RATIO, SINGLE_VALUE, SUM
+
 function createRequestAttribute() {
 	ATTRIBUTENAME=$1
     PAYLOAD='{
@@ -64,7 +61,7 @@ function createRequestAttribute() {
   echo "Creating Metric $METRICNAME($METRICNAME)"
   echo "POST https://$DT_TENANT/api/config/v1/cservice/requestAttributes"
   echo "$PAYLOAD"
-  curl -X PUT \
+  curl -X POST \
           "https://$DT_TENANT/api/config/v1/service/requestAttributes" \
           -H 'accept: application/json; charset=utf-8' \
           -H "Authorization: Api-Token $DT_API_TOKEN" \
