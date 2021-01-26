@@ -21,7 +21,7 @@ fi
 echo "============================================================="
 echo "About to create Process Group Naming Rule on Dynatrace Tenant: $DT_TENANT!"
 echo "============================================================="
-echo "Usage: ./createProcessGroupName"
+echo "Usage: ./createProcessGroupName.sh"
 #read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
 
 ####################################################################################################################
