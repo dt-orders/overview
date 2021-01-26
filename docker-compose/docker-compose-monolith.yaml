@@ -6,9 +6,7 @@ services:
     ports:
       - 80:8080
     environment:
-      - CUSTOMER_URL=http://172.17.0.1:8080
-      - CATALOG_URL=http://172.17.0.1:8080
-      - ORDER_URL=http://172.17.0.1:8080
+      - BACKEND_URL=http://172.17.0.1:8080
       - MONOLITH=true
   backend-service:
     hostname: backend
