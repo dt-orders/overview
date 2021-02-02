@@ -1,8 +1,8 @@
 # Overview 
 
-This folder contains the script and chart files to deploy the dt-orders application using docker-compose.  
+This folder contains the script and files to start the dt-orders application using docker-compose.  
 
-Once the application is running, see these repos to create traffic against the running application
+Once the application is running, see these repos for scripts that will create traffic against the running application
 * [Browser traffic](https://github.com/dt-orders/browser-traffic)
 * [Load traffic](https://github.com/dt-orders/load-traffic)
 
@@ -12,44 +12,38 @@ Once the application is running, see these repos to create traffic against the r
 
 2 . Clone this repo 
 
-# Start the application
+# Monolith topology
 
-1. You can adjust the `docker-compose.yaml` for alternate ports and images names to meet your needs. But, you can just run `docker-compose up` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
+## Start the application
 
-    ```
-    docker-compose up -d
-    ```
+Run `docker-compose -f docker-compose-monolith.yaml up -d` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
 
-2. For running the backend monolith setup, run this command
+## Check that frontend and service containers are running
 
-    ```
-    docker-compose -f docker-compose-monolith.yaml up -d
-    ```
+Verify pods with `docker-compose ps`
 
-# Check that frontend and service containers are running
+Open the front-end in a browser for the app `http://localhost` or the public IP of the host it was run on
 
-1. Verify pods
+## Stop the application
 
-    ```
-    docker-compose ps
-    ```
+Run this command to stop `docker-compose -f docker-compose-monolith.yaml down`
 
-2. Open the front-end in a browser for the app `http://localhost` or the public IP of the host it was run on
+# Microservices topology
 
-# Stop the application
+## Start the application
 
-1. Run this command to stop
+Run `docker-compose up -d` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
 
-    ```
-    docker-compose down
-    ```
+## Check that frontend and service containers are running
 
-2. If ran the backend monolith setup, run this command
+Verify pods with `docker-compose ps`
 
-    ```
-    docker-compose -f docker-compose-monolith.yaml down
-    ```
+Open the front-end in a browser for the app `http://localhost` or the public IP of the host it was run on
 
-# Change image versions
+## Stop the application
+
+Run this command to stop `docker-compose down`
+
+## Change image versions
 
 Edit the `docker-compose.yaml` and run `docker-compose up` again.

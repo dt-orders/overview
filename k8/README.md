@@ -2,6 +2,8 @@
 
 This folder contains the script and chart files to deploy the dt-orders application and traffic generators.
 
+**NOTE: This only supports the microservices deployment option**
+
 # Prerequisites
 
 1 . Create a Kubernetes cluster and configure kubectl to connect to it. 
