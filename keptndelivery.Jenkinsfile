@@ -33,10 +33,10 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-				        //keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
-					// Initialize the Keptn Project
-                                        //keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
-                                        //keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
+				        keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
+					    // Initialize the Keptn Project
+                        keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                        keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
 				        
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
@@ -48,7 +48,8 @@ pipeline {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
-				
+				    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
+				    
 				// send deployment finished to trigger tests
         			script {
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
@@ -61,6 +62,7 @@ pipeline {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer" } }
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
+					keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
 
         			// send deployment finished to trigger tests
         			script {
@@ -74,6 +76,7 @@ pipeline {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
+					keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", monitoring:"dynatrace"
 
         			// send deployment finished to trigger tests
         			script {
