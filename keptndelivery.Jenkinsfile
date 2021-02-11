@@ -33,10 +33,10 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-				        keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
+				        //keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
 					// Initialize the Keptn Project
-                                        keptn.keptnInit project:"keptnorders", service:"frontend", stage:"staging", monitoring:"dynatrace" 
-                                        keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
+                                        //keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                                        //keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
 				        
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
