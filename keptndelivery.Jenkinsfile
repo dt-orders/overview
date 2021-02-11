@@ -31,6 +31,9 @@ pipeline {
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
 
+                                keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
+                                keptn.keptnAddResources('keptnorders/jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
+				
         			// send deployment finished to trigger tests
         			script {
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
@@ -43,8 +46,8 @@ pipeline {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"
-
-        			// send deployment finished to trigger tests
+				
+				// send deployment finished to trigger tests
         			script {
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
