@@ -1,4 +1,4 @@
-@Library('keptn-library@1.0')_
+@Library('keptn-library@1.0')
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
 
@@ -34,14 +34,16 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-				        // keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
+				    // keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
 					// Initialize the Keptn Project
-                                        // keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
-                                        // keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
-				        
-        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
-        				String keptn_bridge = env.KEPTN_BRIDGE
-        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+                      keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                    // keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
+				      def labels=[:]
+                      labels.put('TriggeredBy', 'Jenkins')
+        			//def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
+        			  def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.frontendImage}", labels : labels
+        			  String keptn_bridge = env.KEPTN_BRIDGE
+        			  echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
         		 }	
     		} 
