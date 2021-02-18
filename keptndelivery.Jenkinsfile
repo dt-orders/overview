@@ -54,8 +54,11 @@ pipeline {
 				   
 				// send deployment finished to trigger tests
         			script {
-        			        // keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
-        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    def labels=[:]
+                        labels.put('TriggeredBy', 'Jenkins')
+        				//def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.orderImage}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
@@ -68,8 +71,11 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			        // keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
-        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    def labels=[:]
+                        labels.put('TriggeredBy', 'Jenkins')
+        				//def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.customerImage}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}	
@@ -82,8 +88,11 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			        // keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", monitoring:"dynatrace"
-        				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        				def labels=[:]
+                        labels.put('TriggeredBy', 'Jenkins')
+        				//def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}"
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.catalogImage}", labels : labels 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
