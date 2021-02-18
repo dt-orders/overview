@@ -1,4 +1,5 @@
-@Library('keptn-library')_
+@Library('keptn-library@1.0')_
+import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
 
 pipeline {
@@ -33,10 +34,10 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-				        //keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
-					    // Initialize the Keptn Project
-                        //keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
-                        //keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
+				        // keptn.downloadFile('https://raw.githubusercontent.com/dthotday-performance/overview/master/keptn-onboarding/frontend/jmeter/basiccheck.jmx', 'jmeter/basiccheck.jmx')
+					// Initialize the Keptn Project
+                                        // keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                                        // keptn.keptnAddResources('jmeter/basiccheck.jmx','jmeter/basiccheck.jmx')
 				        
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", image:"${params.frontendImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
@@ -51,7 +52,7 @@ pipeline {
 				   
 				// send deployment finished to trigger tests
         			script {
-        			    //keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			        // keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", image:"${params.orderImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
@@ -65,7 +66,7 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			    //keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			        // keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", image:"${params.customerImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
@@ -79,7 +80,7 @@ pipeline {
 
         			// send deployment finished to trigger tests
         			script {
-        			    //keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			        // keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", monitoring:"dynatrace"
         				def keptnContext = keptn.sendConfigurationChangedEvent project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", image:"${params.catalogImage}" 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
