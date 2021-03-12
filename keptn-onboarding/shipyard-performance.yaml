@@ -10,5 +10,5 @@ spec:
           tasks:
             - name: "test"
               properties:
-                teststrategy: "functional"
+                teststrategy: "performance"
             - name: "evaluation"
