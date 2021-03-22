@@ -48,7 +48,7 @@ function createRequestAttribute() {
         }
       },
       "parameterName": "x-dynatrace-test",
-      "capturingAndStorageLocation": "CAPTURE_AND_STORE_ON_CLIENT"
+      "capturingAndStorageLocation": "CAPTURE_AND_STORE_ON_SERVER"
     }
   ],
   "normalization": "ORIGINAL",
@@ -80,11 +80,16 @@ function createRequestAttribute() {
 createRequestAttribute "TSN"
 
 ###########################################################################
-# First we create LSN
+# Second we create LSN
 ###########################################################################
 createRequestAttribute "LSN"
 
 ###########################################################################
-# First we create LTN
+# Third we create LTN
 ###########################################################################
 createRequestAttribute "LTN"
+
+###########################################################################
+# Fourth we create LTN
+###########################################################################
+createRequestAttribute "SI"
