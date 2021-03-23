@@ -6,28 +6,28 @@ workloads:
     loopcount: 2000
     thinktime: 250
     acceptederrorrate: 1.0
-    script: jmeter/load.jmx
+    script: catalog/jmeter/load.jmx
   - teststrategy: performance_100
     vuser: 100
     loopcount: 10
     thinktime: 250
     acceptederrorrate: 1.0
-    script: jmeter/load.jmx
+    script: catalog/jmeter/load.jmx
   - teststrategy: performance_50
     vuser: 50
     loopcount: 10
     thinktime: 250
     acceptederrorrate: 1.0
-    script: jmeter/load.jmx
+    script: catalog/jmeter/load.jmx
   - teststrategy: performance_10
     vuser: 50
     loopcount: 10
     thinktime: 250
     acceptederrorrate: 1.0
-    script: jmeter/load.jmx
+    script: catalog/jmeter/load.jmx
   - teststrategy: performance
     vuser: 10
     loopcount: 10
     thinktime: 250
     acceptederrorrate: 1.0
-    script: jmeter/load.jmx 
+    script: catalog/jmeter/load.jmx 
