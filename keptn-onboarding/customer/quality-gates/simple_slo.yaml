@@ -6,6 +6,7 @@ comparison:
   aggregate_function: avg
 objectives:
   - sli: response_time_p95
+    displayName: "Reponse Time P95"
     key_sli: false
     pass:        # pass if (relative change <= 10% AND absolute value is < 500)
       - criteria:
@@ -15,7 +16,9 @@ objectives:
       - criteria:
           - "<=800"
   - sli: throughput
+    displayName: "Throughput"
   - sli: error_rate
+    displayName: "Error Rate"
     weight: 2
     pass:
       - criteria:
@@ -24,7 +27,9 @@ objectives:
       - criteria:
           - "<=2%"
   - sli: response_time_p50
+    displayName: "Reponse Time P50"
   - sli: response_time_p90
+    displayName: "Reponse Time P90"
 total_score:
   pass: "90%"
   warning: "75%"
