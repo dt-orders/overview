@@ -15,9 +15,9 @@ objectives:
       - criteria:
           - "<=800"
   - sli: throughput
-    displayName: "throughput"
+    displayName: "Throughput"
   - sli: error_rate
-    displayName: "error rate"
+    displayName: "Error Rate"
     weight: 2
     pass:
       - criteria:
