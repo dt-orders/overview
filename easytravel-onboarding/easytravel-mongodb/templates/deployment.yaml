@@ -1,4 +1,16 @@
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: easytravel-db-mongodata
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+status: {}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,12 +35,31 @@ spec:
       labels:
         easytravel-tier: easytravel-mongodb
         tier: database
+        app: easytravel
+        deployment: easytravel-mongodb
+        app.kubernetes.io/name: {{ .Values.keptn.service }}
+        app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
+        app.kubernetes.io/component: database
+        app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
+        app.kubernetes.io/managed-by: Keptn
+        app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }} 
     spec:
       containers:
-      - image: dynatrace/easytravel-mongodb:2.0.0.3156
+      - name: easytravel-mongodb
+        image: dynatrace/easytravel-mongodb:2.0.0.3156
+        imagePullPolicy: IfNotPresent
         name: easytravel-mongodb
         ports:
         - containerPort: 27017
           protocol: TCP
         - containerPort: 28017
           protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: easytravel-db-mongodata    
+      restartPolicy: Always
+      volumes:
+      - name: easytravel-db-mongodata
+        persistentVolumeClaim:
+          claimName: easytravel-db-mongodata
