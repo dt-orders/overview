@@ -2,27 +2,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: easytravel-backend  
   labels:
     easytravel-tier: easytravel-backend
-  name: easytravel-backend
-  namespace: easytravel
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      easytravel-tier: easytravel-backend
-      app: easytravel-backend
+  replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
     type: RollingUpdate
+  selector:
+    matchLabels:
+      app: easytravel-backend
+      easytravel-tier: easytravel-backend
   template:
     metadata:
       labels:
+        app: easytravel-backend        
         easytravel-tier: easytravel-backend
         tier: backend
-        app: easytravel-backend
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
@@ -32,13 +31,23 @@ spec:
     spec:
       containers:
       - name: easytravel-backend
-        image: {{ .Values.image }}
-        imagePullPolicy: Always      
-      - env:
+        image: "{{ .Values.image }}"
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8009
+          protocol: TCP
+        - name: http2
+          containerPort: 8005
+          protocol: TCP
+        - name: http3
+          containerPort: 8080
+          protocol: TCP        
+        env:
         - name: ET_DATABASE_LOCATION
           value: easytravel-mongodb:27017
         - name: DT_CUSTOM_PROP
-          value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
+          value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
           valueFrom:
             fieldRef:
@@ -50,25 +59,13 @@ spec:
         - name: CONTAINER_IMAGE
           value: "{{ .Values.image }}"
         - name: KEPTN_PROJECT
-          value: "{{ .Chart.Name }}"
+          value: "{{ .Values.keptn.project }}"
         - name: KEPTN_STAGE
-          valueFrom:
-            fieldRef:
-              fieldPath: "metadata.namespace"
+          value: "{{ .Values.keptn.stage }}"
         - name: KEPTN_SERVICE
-          value: "carts"
-        - name: UNLEASH_SERVER_URL
-          value: "http://unleash.unleash-dev/api"          
-        ports:
-        - name: http
-          containerPort: 8009
-          protocol: TCP
-        - name: http2
-          containerPort: 8005
-          protocol: TCP
-        - name: http3
-          containerPort: 8080
-          protocol: TCP
+          value: "{{ .Values.keptn.service }}"
+        - name: KEPTN_DEPLOYMENT
+          value: "{{ .Values.keptn.deployment }}"
         livenessProbe:
           httpGet:
             path: /health
