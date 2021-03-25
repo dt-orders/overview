@@ -1,0 +1,34 @@
+---
+spec_version: '0.1.0'
+comparison:
+  compare_with: "single_result"
+  include_result_with_score: "pass"
+  aggregate_function: avg
+objectives:
+  - sli: response_time_p95
+    displayName: "Reponse Time P95"
+    pass:        # pass if (relative change <= 10% AND absolute value is < 500)
+      - criteria:
+          - "<=+10%" # relative values require a prefixed sign (plus or minus)
+          - "<800"   # absolute values only require a logical operator
+    warning:     # if the response time is below 800ms, the result should be a warning
+      - criteria:
+          - "<=1000"
+  - sli: throughput
+    displayName: "Throughput"
+  - sli: error_rate
+    displayName: "Error Rate"
+    weight: 2
+    pass:
+      - criteria:
+          - "<=1%"
+    warning:
+      - criteria:
+          - "<=2%"
+  - sli: response_time_p50
+    displayName: "Reponse Time P50"
+  - sli: response_time_p90
+    displayName: "Reponse Time P90"
+total_score:
+  pass: "90%"
+  warning: "75%"

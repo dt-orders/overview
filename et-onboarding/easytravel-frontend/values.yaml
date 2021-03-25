@@ -1,0 +1,2 @@
+replicaCount: 2
+image: docker.io/dynatrace/easytravel-frontend:2.0.0.3256

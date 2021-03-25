@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    easytravel-tier: easytravel-mongodb
+  name: easytravel-mongodb
+  namespace: easytravel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      easytravel-tier: easytravel-mongodb
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        easytravel-tier: easytravel-mongodb
+      labels:
+        easytravel-tier: easytravel-mongodb
+        tier: database
+    spec:
+      containers:
+      - image: dynatrace/easytravel-mongodb:2.0.0.3156
+        name: easytravel-mongodb
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        - containerPort: 28017
+          protocol: TCP

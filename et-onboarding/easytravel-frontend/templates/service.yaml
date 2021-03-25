@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    easytravel-tier: easytravel-frontend
+  name: easytravel-frontend-service
+  namespace: easytravel
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: port1
+    nodePort: 30080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: port2
+    nodePort: 30280
+    port: 8280
+    protocol: TCP
+    targetPort: 8280
+  selector:
+    easytravel-tier: easytravel-frontend
+  sessionAffinity: None
+  type: NodePort
