@@ -31,9 +31,12 @@ spec:
         app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}        
     spec:
       containers:
+      - name: easytravel-backend
+        image: {{ .Values.image }}
+        imagePullPolicy: Always      
       - env:
         - name: ET_DATABASE_LOCATION
-          value: easytravel-mongodb-service:27017
+          value: easytravel-mongodb:27017
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
@@ -56,9 +59,6 @@ spec:
           value: "carts"
         - name: UNLEASH_SERVER_URL
           value: "http://unleash.unleash-dev/api"          
-        image: dynatrace/easytravel-backend:2.0.0.3256
-        imagePullPolicy: Always
-        name: easytravel-backend
         ports:
         - containerPort: 8009
           protocol: TCP
@@ -66,3 +66,17 @@ spec:
           protocol: TCP
         - containerPort: 8080
           protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 15

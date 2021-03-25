@@ -3,8 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    easytravel-tier: easytravel-backend-service
-  name: easytravel-backend-service
+    easytravel-tier: easytravel-backend
+  name: easytravel-backend
   namespace: easytravel
 spec:
   ports:

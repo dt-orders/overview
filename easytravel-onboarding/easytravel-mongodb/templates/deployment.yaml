@@ -14,20 +14,21 @@ status: {}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: easytravel-mongodb  
   labels:
     easytravel-tier: easytravel-mongodb
-  name: easytravel-mongodb
-  namespace: easytravel
+    app: easytravel-mongodb
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      easytravel-tier: easytravel-mongodb
   strategy:
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
-    type: RollingUpdate
+    type: RollingUpdate  
+  selector:
+    matchLabels:
+      easytravel-tier: easytravel-mongodb
+      app: easytravel-mongodb
   template:
     metadata:
       annotations:
@@ -46,7 +47,7 @@ spec:
     spec:
       containers:
       - name: easytravel-mongodb
-        image: dynatrace/easytravel-mongodb:2.0.0.3156
+        image: {{ .Values.image }}
         imagePullPolicy: IfNotPresent
         name: easytravel-mongodb
         ports:
