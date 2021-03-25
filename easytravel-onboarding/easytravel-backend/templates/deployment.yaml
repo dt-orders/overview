@@ -60,11 +60,14 @@ spec:
         - name: UNLEASH_SERVER_URL
           value: "http://unleash.unleash-dev/api"          
         ports:
-        - containerPort: 8009
+        - name: http
+          containerPort: 8009
           protocol: TCP
-        - containerPort: 8005
+        - name: http2
+          containerPort: 8005
           protocol: TCP
-        - containerPort: 8080
+        - name: http3
+          containerPort: 8080
           protocol: TCP
         livenessProbe:
           httpGet:
