@@ -17,14 +17,14 @@ objectives:
   - sli: throughput
     displayName: "Throughput"
   - sli: error_rate
-    displayName: "Error Rate"
+    displayName: "Error Count"
     weight: 2
     pass:
       - criteria:
-          - "<=1%"
+          - "<=1"
     warning:
       - criteria:
-          - "<=2%"
+          - "<=2"
   - sli: response_time_p50
     displayName: "Reponse Time P50"
   - sli: response_time_p90
