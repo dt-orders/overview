@@ -16,10 +16,10 @@ kind: Deployment
 metadata:
   name: easytravel-mongodb  
   labels:
+    app: easytravel-mongodb  
     easytravel-tier: easytravel-mongodb
-    app: easytravel-mongodb
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -27,8 +27,8 @@ spec:
     type: RollingUpdate  
   selector:
     matchLabels:
-      easytravel-tier: easytravel-mongodb
       app: easytravel-mongodb
+      easytravel-tier: easytravel-mongodb  
   template:
     metadata:
       annotations:

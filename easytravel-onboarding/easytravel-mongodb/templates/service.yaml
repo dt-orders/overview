@@ -5,7 +5,6 @@ metadata:
   labels:
     easytravel-tier: easytravel-mongodb
   name: easytravel-mongodb
-  namespace: easytravel
 spec:
   ports:
   - name: "27017"
@@ -17,7 +16,5 @@ spec:
     protocol: TCP
     targetPort: 28017
   selector:
+    app: easytravel-mongodb    
     easytravel-tier: easytravel-mongodb
-    app: easytravel-mongodb
-  sessionAffinity: None
-  type: ClusterIP

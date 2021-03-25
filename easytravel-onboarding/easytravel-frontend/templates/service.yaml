@@ -5,7 +5,6 @@ metadata:
   labels:
     easytravel-tier: easytravel-frontend
   name: easytravel-frontend
-  namespace: easytravel
 spec:
   externalTrafficPolicy: Cluster
   ports:

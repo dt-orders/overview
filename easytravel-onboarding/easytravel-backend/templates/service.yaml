@@ -5,7 +5,6 @@ metadata:
   labels:
     easytravel-tier: easytravel-backend
   name: easytravel-backend
-  namespace: easytravel
 spec:
   ports:
   - name: port5
