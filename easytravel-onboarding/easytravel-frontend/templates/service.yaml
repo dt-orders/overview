@@ -21,5 +21,6 @@ spec:
     targetPort: 8280
   selector:
     easytravel-tier: easytravel-frontend
+    app: easytravel-frontend
   sessionAffinity: None
   type: NodePort

@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       easytravel-tier: easytravel-backend
+      app: easytravel-backend
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -21,12 +22,40 @@ spec:
       labels:
         easytravel-tier: easytravel-backend
         tier: backend
-      name: easytravel-backend
+        app: easytravel-backend
+        app.kubernetes.io/name: {{ .Values.keptn.service }}
+        app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
+        app.kubernetes.io/component: api
+        app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
+        app.kubernetes.io/managed-by: Keptn
+        app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}        
     spec:
       containers:
       - env:
         - name: ET_DATABASE_LOCATION
           value: easytravel-mongodb-service:27017
+        - name: DT_CUSTOM_PROP
+          value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.name"
+        - name: DEPLOYMENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.labels['deployment']"
+        - name: CONTAINER_IMAGE
+          value: "{{ .Values.image }}"
+        - name: KEPTN_PROJECT
+          value: "{{ .Chart.Name }}"
+        - name: KEPTN_STAGE
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.namespace"
+        - name: KEPTN_SERVICE
+          value: "carts"
+        - name: UNLEASH_SERVER_URL
+          value: "http://unleash.unleash-dev/api"          
         image: dynatrace/easytravel-backend:2.0.0.3256
         imagePullPolicy: Always
         name: easytravel-backend

@@ -22,5 +22,6 @@ spec:
     targetPort: 8005
   selector:
     easytravel-tier: easytravel-backend
+    app: easytravel-backend
   sessionAffinity: None
   type: ClusterIP

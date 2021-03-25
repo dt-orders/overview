@@ -18,5 +18,6 @@ spec:
     targetPort: 28017
   selector:
     easytravel-tier: easytravel-mongodb
+    app: easytravel-mongodb
   sessionAffinity: None
   type: ClusterIP
