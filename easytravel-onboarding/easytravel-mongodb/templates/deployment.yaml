@@ -57,7 +57,7 @@ spec:
           protocol: TCP
         resources: {}
         volumeMounts:
-        - mountPath: /data/db
+        - mountPath: /data/db/easytravel
           name: easytravel-db-mongodata    
       restartPolicy: Always
       volumes:
