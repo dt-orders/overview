@@ -16,7 +16,7 @@ objectives:
           - "<=1000"
   - sli: throughput
     displayName: "Throughput"
-  - sli: error_count
+  - sli: error_rate
     displayName: "Error Count"
     weight: 2
     pass:
