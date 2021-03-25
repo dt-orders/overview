@@ -4,7 +4,7 @@ kind: Service
 metadata:
   labels:
     easytravel-tier: easytravel-mongodb
-  name: easytravel-mongodb-service
+  name: easytravel-mongodb
   namespace: easytravel
 spec:
   ports:
