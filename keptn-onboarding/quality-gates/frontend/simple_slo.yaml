@@ -21,10 +21,10 @@ objectives:
     weight: 2
     pass:
       - criteria:
-          - "<=1"
+          - "<=1%"
     warning:
       - criteria:
-          - "<=2"
+          - "<=2%"
   - sli: response_time_p50
     displayName: "Response Time p50"
   - sli: response_time_p90
