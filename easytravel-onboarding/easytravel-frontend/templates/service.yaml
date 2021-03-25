@@ -4,7 +4,7 @@ kind: Service
 metadata:
   labels:
     easytravel-tier: easytravel-frontend
-  name: easytravel-frontend-service
+  name: easytravel-frontend
   namespace: easytravel
 spec:
   externalTrafficPolicy: Cluster

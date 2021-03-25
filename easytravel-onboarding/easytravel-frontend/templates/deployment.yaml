@@ -33,7 +33,7 @@ spec:
       containers:
       - env:
         - name: ET_BACKEND_URL
-          value: http://easytravel-backend-service:8080
+          value: http://easytravel-backend:8080
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
