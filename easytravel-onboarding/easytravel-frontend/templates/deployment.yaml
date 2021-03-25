@@ -5,7 +5,6 @@ metadata:
   labels:
     easytravel-tier: easytravel-frontend
   name: easytravel-frontend
-  namespace: easytravel
 spec:
   replicas: 2
   selector:

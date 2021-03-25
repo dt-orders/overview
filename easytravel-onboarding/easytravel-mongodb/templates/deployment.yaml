@@ -36,7 +36,7 @@ spec:
       labels:
         easytravel-tier: easytravel-mongodb
         tier: database
-        app: easytravel
+        app: easytravel-mongodb
         deployment: easytravel-mongodb
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
