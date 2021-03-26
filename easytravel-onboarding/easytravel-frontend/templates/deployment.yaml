@@ -6,7 +6,7 @@ metadata:
     easytravel-tier: easytravel-frontend
   name: easytravel-frontend
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       easytravel-tier: easytravel-frontend
