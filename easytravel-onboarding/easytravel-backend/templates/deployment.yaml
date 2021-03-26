@@ -42,7 +42,13 @@ spec:
           protocol: TCP        
         env:
         - name: ET_DATABASE_LOCATION
-          value: easytravel-mongodb:27017
+          value: "easytravel-mongodb:27017"
+        - name: ET_MONGO_AUTH_DB
+          value: "admin"
+        - name: ET_DATABASE_USER
+          value: "etAdmin"
+        - name: ET_DATABASE_PASSWORD
+          value: "adminadmin"  
         - name: DT_CUSTOM_PROP
           value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
