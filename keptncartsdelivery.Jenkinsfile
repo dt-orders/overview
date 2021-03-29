@@ -13,7 +13,8 @@ pipeline {
          string(defaultValue: 'sockshop', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
          string(defaultValue: 'dev', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'carts', description: 'Carts Service', name: 'cartsService', trim: false)
-         string(defaultValue: 'docker.io/keptnexamples/carts:0.12.1', description: 'Carts Service with Tag [:0.12.1,:0.12.2:0.12.3]', name: 'cartsImage', trim: false)
+         string(defaultValue: 'docker.io/keptnexamples/carts', description: 'Carts Service Image']', name: 'cartsImage', trim: false)
+	 choice(name: 'Release', choices: ["0.12.1", "0.12.2", "0.12.3"], description: 'Carts Service with Tag [:0.12.1,:0.12.2:0.12.3]')
          string(defaultValue: 'carts-db', description: 'Carts mongoDB', name: 'carts-dbService', trim: false)
          string(defaultValue: 'docker.io/mongo:4.2.2', description: 'Carts-db Service with Tag [:4.2.2]', name: 'carts-dbImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
@@ -24,7 +25,7 @@ pipeline {
         	stage('Trigger cartsService') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "carts" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.cartsImage}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.cartsImage}:${params.Release}"
         			script {
 					  // Initialize the Keptn Project
                       keptn.keptnInit project:"${params.Project}", service:"${params.cartsService}", stage:"${params.Stage}", monitoring:"dynatrace" 
@@ -32,7 +33,7 @@ pipeline {
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
         			  // Deploy via keptn
-        			  def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.cartsImage}", labels : labels
+        			  def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.cartsImage}:${params.Release}", labels : labels
         			  String keptn_bridge = env.KEPTN_BRIDGE
         			  echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
