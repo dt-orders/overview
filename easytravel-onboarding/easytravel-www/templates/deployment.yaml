@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: easytravel-www
   labels:
-    easytravel-tier: easytravel-frontend
     app: easytravel
-  name: easytravel-frontend
+    type: www
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      easytravel-tier: easytravel-frontend
+      easytravel-tier: easytravel-www
       app: easytravel
   strategy:
     rollingUpdate:
@@ -20,9 +20,9 @@ spec:
   template:
     metadata:
       labels:
-        easytravel-tier: easytravel-frontend
-        tier: frontend
+        easytravel-tier: easytravel-www
         app: easytravel
+        type: www-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
@@ -32,8 +32,10 @@ spec:
     spec:
       containers:
       - env:
-        - name: ET_BACKEND_URL
-          value: "http://easytravel-backend:8080"
+        - name: ET_FRONTEND_LOCATION
+          value: "easytravel-frontend:8080"
+        - name: ET_BACKEND_LOCATION
+          value: "easytravel-backend:8080"  
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
@@ -47,20 +49,16 @@ spec:
         - name: CONTAINER_IMAGE
           value: "{{ .Values.image }}"
         - name: KEPTN_PROJECT
-          value: "{{ .Chart.Name }}"
+          value: "{{ .Values.keptn.project }}"
         - name: KEPTN_STAGE
-          valueFrom:
-            fieldRef:
-              fieldPath: "metadata.namespace"
+          value: "{{ .Values.keptn.stage }}"
         - name: KEPTN_SERVICE
-          value: "carts"
-        - name: UNLEASH_SERVER_URL
-          value: "http://unleash.unleash-dev/api"          
-        image: dynatrace/easytravel-frontend
+          value: "{{ .Values.keptn.service }}"
+        - name: KEPTN_DEPLOYMENT
+          value: "{{ .Values.keptn.deployment }}"         
+        image: dynatrace/easytravel-nginx
         imagePullPolicy: Always
-        name: easytravel-frontend
+        name: easytravel-www
         ports:
-        - containerPort: 8080
-          protocol: TCP
-        - containerPort: 8280
+        - containerPort: 80
           protocol: TCP

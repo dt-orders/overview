@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: easytravel-mongodb  
   labels:
-    app: easytravel-mongodb  
+    app: easytravel  
     easytravel-tier: easytravel-mongodb
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -27,7 +27,7 @@ spec:
     type: RollingUpdate  
   selector:
     matchLabels:
-      app: easytravel-mongodb
+      app: easytravel
       easytravel-tier: easytravel-mongodb  
   template:
     metadata:
@@ -35,8 +35,7 @@ spec:
         easytravel-tier: easytravel-mongodb
       labels:
         easytravel-tier: easytravel-mongodb
-        tier: database
-        app: easytravel-mongodb
+        app: easytravel
         deployment: easytravel-mongodb
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
@@ -49,7 +48,6 @@ spec:
       - name: easytravel-mongodb
         image: {{ .Values.image }}
         imagePullPolicy: IfNotPresent
-        name: easytravel-mongodb
         ports:
         - containerPort: 27017
           protocol: TCP

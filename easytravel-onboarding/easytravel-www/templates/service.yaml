@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: easytravel-www
+  labels:
+    app: easytravel
+    type: www-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+  selector:
+    app: easytravel
+    type: www-pod

@@ -5,6 +5,7 @@ metadata:
   name: easytravel-backend  
   labels:
     easytravel-tier: easytravel-backend
+    app: easytravel
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -14,14 +15,13 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: easytravel-backend
+      app: easytravel
       easytravel-tier: easytravel-backend
   template:
     metadata:
       labels:
-        app: easytravel-backend        
+        app: easytravel        
         easytravel-tier: easytravel-backend
-        tier: backend
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api

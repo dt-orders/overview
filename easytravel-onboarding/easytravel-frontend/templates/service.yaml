@@ -4,9 +4,10 @@ kind: Service
 metadata:
   labels:
     easytravel-tier: easytravel-frontend
+    app: easytravel
+    type: frontend
   name: easytravel-frontend
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - name: port1
     nodePort: 30080
@@ -20,6 +21,7 @@ spec:
     targetPort: 8280
   selector:
     easytravel-tier: easytravel-frontend
-    app: easytravel-frontend
-  sessionAffinity: None
-  type: NodePort
+    app: easytravel
+    type: frontend-pod
+#  sessionAffinity: None
+#  type: NodePort

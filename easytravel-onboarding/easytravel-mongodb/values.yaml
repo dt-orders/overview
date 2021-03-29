@@ -1,2 +1,2 @@
 replicaCount: 1
-image: docker.io/dynatrace/easytravel-mongodb:2.0.0.3156
+image: docker.io/dynatrace/easytravel-mongodb:2.0.0.3273
