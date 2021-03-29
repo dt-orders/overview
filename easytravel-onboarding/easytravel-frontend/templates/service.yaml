@@ -10,12 +10,12 @@ metadata:
 spec:
   ports:
   - name: port1
-    nodePort: 30080
+#    nodePort: 30080
     port: 8080
     protocol: TCP
     targetPort: 8080
   - name: port2
-    nodePort: 30280
+#    nodePort: 30280
     port: 8280
     protocol: TCP
     targetPort: 8280
