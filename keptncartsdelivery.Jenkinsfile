@@ -17,7 +17,7 @@ pipeline {
          string(defaultValue: 'carts-db', description: 'Carts mongoDB', name: 'carts-dbService', trim: false)
          string(defaultValue: 'docker.io/mongo:4.2.2', description: 'Carts-db Service with Tag [:4.2.2]', name: 'carts-dbImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: 'DEPLOY_TO', choices: ["all", "carts", "carts-db"])
+         choice(name: 'DEPLOY_TO', choices: ["none", "all", "carts", "carts-db"])
     }
 
     stages {        
