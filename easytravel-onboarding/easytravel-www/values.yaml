@@ -1,2 +1,2 @@
 replicaCount: 1
-image: docker.io/easytravel-nginx:2.0.0.3256
+image: docker.io/dynatrace/easytravel-nginx:2.0.0.3256
