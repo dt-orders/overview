@@ -4,7 +4,6 @@ metadata:
   name: easytravel-www
   labels:
     app: easytravel-www
-    type: www-service
 spec:
   type: LoadBalancer
   ports:
@@ -13,4 +12,3 @@ spec:
       nodePort: 30080
   selector:
     app: easytravel-www
-    type: www-pod

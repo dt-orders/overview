@@ -5,12 +5,10 @@ metadata:
   name: easytravel-www
   labels:
     app: easytravel-www
-    type: www
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      easytravel-tier: easytravel-www
       app: easytravel-www
   strategy:
     rollingUpdate:
@@ -19,9 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        easytravel-tier: easytravel-www
         app: easytravel-www
-        type: www-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
