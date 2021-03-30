@@ -8,7 +8,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: http
+  - name: easytravel-backend
     port: 8080
     protocol: TCP
     targetPort: 8080
