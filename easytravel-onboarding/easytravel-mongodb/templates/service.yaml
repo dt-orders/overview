@@ -15,10 +15,10 @@ spec:
 #    port: 27017
 #    protocol: TCP
 #   targetPort: 27017
-#  - name: "28017"
-#    port: 28017
+  - name: "28017"
+    port: 28017
 #    protocol: TCP
-#    targetPort: 28017
+    targetPort: 28017
   selector:
     app: easytravel-mongodb
 #  type: ClusterIP      
