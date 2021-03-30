@@ -30,7 +30,7 @@ spec:
         app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}        
     spec:
       containers:
-        name: easytravel-www
+      - name: easytravel-www
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
@@ -40,29 +40,29 @@ spec:
         - name: https
           containerPort: 443
           protocol: TCP              
-        - env:
-          - name: ET_FRONTEND_LOCATION
-            value: "easytravel-frontend:8080"
-          - name: ET_BACKEND_LOCATION
-            value: "easytravel-backend:8080"  
-          - name: DT_CUSTOM_PROP
-            value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
-          - name: POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: "metadata.name"
-          - name: DEPLOYMENT_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: "metadata.labels['deployment']"
-          - name: CONTAINER_IMAGE
-            value: "{{ .Values.image }}"
-          - name: KEPTN_PROJECT
-            value: "{{ .Values.keptn.project }}"
-          - name: KEPTN_STAGE
-            value: "{{ .Values.keptn.stage }}"
-          - name: KEPTN_SERVICE
-            value: "{{ .Values.keptn.service }}"
-          - name: KEPTN_DEPLOYMENT
-            value: "{{ .Values.keptn.deployment }}"         
+      - env:
+        - name: ET_FRONTEND_LOCATION
+          value: "easytravel-frontend:8080"
+        - name: ET_BACKEND_LOCATION
+          value: "easytravel-backend:8080"  
+        - name: DT_CUSTOM_PROP
+          value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.name"
+        - name: DEPLOYMENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.labels['deployment']"
+        - name: CONTAINER_IMAGE
+          value: "{{ .Values.image }}"
+        - name: KEPTN_PROJECT
+          value: "{{ .Values.keptn.project }}"
+        - name: KEPTN_STAGE
+          value: "{{ .Values.keptn.stage }}"
+        - name: KEPTN_SERVICE
+          value: "{{ .Values.keptn.service }}"
+        - name: KEPTN_DEPLOYMENT
+          value: "{{ .Values.keptn.deployment }}"         
         
