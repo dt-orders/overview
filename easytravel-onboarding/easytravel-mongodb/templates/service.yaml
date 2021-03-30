@@ -5,18 +5,20 @@ metadata:
   name: easytravel-mongodb
   labels:  
     app:  easytravel-mongodb
-    type: mongodb
 spec:
   ports:
-  - name: "27017"
-    port: 27017
-    protocol: TCP
-    targetPort: 27017
-  - name: "28017"
-    port: 28017
-    protocol: TCP
-    targetPort: 28017
+  - name: {{ .Values.service.name }}
+    port: {{ .Values.service.externalPort }}
+    targetPort: {{ .Values.service.internalPort }}
+#  ports:
+#  - name: "27017"
+#    port: 27017
+#    protocol: TCP
+#   targetPort: 27017
+#  - name: "28017"
+#    port: 28017
+#    protocol: TCP
+#    targetPort: 28017
   selector:
     app: easytravel-mongodb
-    type: mongodb-pod
 #  type: ClusterIP      
