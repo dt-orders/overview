@@ -45,22 +45,20 @@ spec:
         app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }} 
     spec:
       containers:
-        - name: easytravel-mongodb
-          image: {{ .Values.image }}
-          imagePullPolicy: IfNotPresent
-          ports:
-          - containerPort: 27017
-            protocol: TCP
-          - containerPort: 28017
-            protocol: TCP
-          resources: {}
-          volumeMounts:
-          - mountPath: /data/db/easytravel
-            name: easytravel-db-mongodata    
-            restartPolicy: Always
-          volumes:
-          - name: easytravel-db-mongodata
-            persistentVolumeClaim:
-            claimName: easytravel-db-mongodata
-                  
-          
+      - name: easytravel-mongodb
+        image: {{ .Values.image }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        - containerPort: 28017
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db/easytravel
+          name: easytravel-db-mongodata    
+      restartPolicy: Always
+      volumes:
+      - name: easytravel-db-mongodata
+        persistentVolumeClaim:
+          claimName: easytravel-db-mongodata      
