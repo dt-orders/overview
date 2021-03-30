@@ -5,7 +5,7 @@ metadata:
   name: easytravel-backend  
   labels:
     app: easytravel-backend
-    type: backend
+    type: backend-pod
     easytravel-tier: easytravel-backend    
 spec:
   replicas: {{ .Values.replicaCount }}
