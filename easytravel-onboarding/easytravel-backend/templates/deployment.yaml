@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: easytravel-backend  
   labels:
-    app: easytravel
+    app: easytravel-backend
     type: backend
     easytravel-tier: easytravel-backend    
 spec:
@@ -35,13 +35,13 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-        - name: "8009" 
+        - name: 8009 
           containerPort: 8009
           protocol: TCP
-        - name: "8005"  
+        - name: 8005  
           containerPort: 8005
           protocol: TCP
-        - name: "8080"  
+        - name: 8080  
           containerPort: 8080
           protocol: TCP        
         env:
