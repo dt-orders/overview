@@ -4,23 +4,24 @@ kind: Deployment
 metadata:
   name: easytravel-backend  
   labels:
-    easytravel-tier: easytravel-backend
     app: easytravel
+    type: backend
+    easytravel-tier: easytravel-backend    
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
+      maxUnavailable: 0
     type: RollingUpdate
   selector:
     matchLabels:
-      app: easytravel
+      app: easytravel-backend
+      type: backend-pod
       easytravel-tier: easytravel-backend
   template:
     metadata:
       labels:
-        app: easytravel        
+        app: easytravel-backend        
         easytravel-tier: easytravel-backend
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
@@ -32,15 +33,20 @@ spec:
       containers:
       - name: easytravel-backend
         image: "{{ .Values.image }}"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8009
+        - name: "8009" 
+          containerPort: 8009
           protocol: TCP
-        - containerPort: 8005
+        - name: "8005"  
+          containerPort: 8005
           protocol: TCP
-        - containerPort: 8080
+        - name: "8080"  
+          containerPort: 8080
           protocol: TCP        
         env:
+        - name: CATALINA_OPTS
+          value: "-Dconfig.apmServerDefault=APM -Xmx300m"
         - name: ET_DATABASE_LOCATION
           value: "easytravel-mongodb:27017"
         - name: ET_MONGO_AUTH_DB
@@ -49,6 +55,7 @@ spec:
           value: "etAdmin"
         - name: ET_DATABASE_PASSWORD
           value: "adminadmin"  
+
         - name: DT_CUSTOM_PROP
           value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME

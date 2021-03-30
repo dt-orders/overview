@@ -16,26 +16,26 @@ kind: Deployment
 metadata:
   name: easytravel-mongodb  
   labels:
-    app: easytravel  
+    app: easytravel-mongodb  
+    type: mongodb
     easytravel-tier: easytravel-mongodb
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
+      maxUnavailable: 0
     type: RollingUpdate  
   selector:
     matchLabels:
-      app: easytravel
-      easytravel-tier: easytravel-mongodb  
+      app: easytravel-mongodb
+      easytravel-tier: easytravel-mongodb      
   template:
     metadata:
       annotations:
         easytravel-tier: easytravel-mongodb
       labels:
-        easytravel-tier: easytravel-mongodb
-        app: easytravel
+        app: easytravel-mongodb
+        easytravel-tier: easytravel-mongodb       
         deployment: easytravel-mongodb
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
@@ -45,20 +45,22 @@ spec:
         app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }} 
     spec:
       containers:
-      - name: easytravel-mongodb
-        image: {{ .Values.image }}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-          protocol: TCP
-        - containerPort: 28017
-          protocol: TCP
-        resources: {}
-        volumeMounts:
-        - mountPath: /data/db/easytravel
-          name: easytravel-db-mongodata    
-      restartPolicy: Always
-      volumes:
-      - name: easytravel-db-mongodata
-        persistentVolumeClaim:
-          claimName: easytravel-db-mongodata
+        - name: easytravel-mongodb
+          image: {{ .Values.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 27017
+            protocol: TCP
+          - containerPort: 28017
+            protocol: TCP
+          resources: {}
+          volumeMounts:
+          - mountPath: /data/db/easytravel
+            name: easytravel-db-mongodata    
+            restartPolicy: Always
+          volumes:
+          - name: easytravel-db-mongodata
+            persistentVolumeClaim:
+            claimName: easytravel-db-mongodata
+                  
+          

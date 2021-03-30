@@ -2,28 +2,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    easytravel-tier: easytravel-backend
-    app: easytravel
-    type: backend-pod
   name: easytravel-backend
+  labels:   
+    app: easytravel
+    type: backend
+    easytravel-tier: easytravel-backend
 spec:
   ports:
-  - name: port5
+  - name: "8080"
     port: 8080
     protocol: TCP
     targetPort: 8080
-  - name: port3
+  - name: "8009"
     port: 8009
     protocol: TCP
     targetPort: 8009
-  - name: port4
+  - name: "8005"
     port: 8005
     protocol: TCP
     targetPort: 8005
   selector:
-    easytravel-tier: easytravel-backend
     app: easytravel
     type: backend-pod
+    easytravel-tier: easytravel-backend
+
 #  sessionAffinity: None
 #  type: ClusterIP

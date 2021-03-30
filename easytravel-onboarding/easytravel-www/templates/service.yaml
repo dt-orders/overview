@@ -3,14 +3,14 @@ kind: Service
 metadata:
   name: easytravel-www
   labels:
-    app: easytravel
+    app: easytravel-www
     type: www-service
 spec:
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
-#      nodePort: 30080
+      nodePort: 30080
   selector:
-    app: easytravel
+    app: easytravel-www
     type: www-pod
