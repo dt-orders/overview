@@ -11,13 +11,6 @@ spec:
     port: {{ .Values.service.externalPort }}
     protocol: TCP
     targetPort: {{ .Values.service.internalPort }}
-#    nodePort: 30080
-#  - name: http2
-#    nodePort: 30280
-#    port: 8280
-#    protocol: TCP
-#    targetPort: 8280
   selector:
     app: easytravel-frontend
-#  sessionAffinity: None
   type: ClusterIP

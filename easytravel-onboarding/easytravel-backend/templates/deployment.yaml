@@ -52,14 +52,6 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-#        - name: http2 
-#        - containerPort: 8009
-#          protocol: TCP
-#        - name: http3  
-#        - containerPort: 8005
-#          protocol: TCP
-#        - name: http
-#          protocol: TCP  
         - containerPort: 8080        
         envFrom:
           - configMapRef:
@@ -97,13 +89,13 @@ spec:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
           periodSeconds: 10
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
           periodSeconds: 10
           timeoutSeconds: 15

@@ -39,10 +39,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-#          protocol: TCP     
-#        - name: https
-        - containerPort: 443
-#          protocol: TCP              
+        - containerPort: 443            
         envFrom:
           - configMapRef:
               name: www-config
@@ -67,4 +64,17 @@ spec:
           value: "{{ .Values.keptn.service }}"
         - name: KEPTN_DEPLOYMENT
           value: "{{ .Values.keptn.deployment }}"         
-        
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          timeoutSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          timeoutSeconds: 15 
