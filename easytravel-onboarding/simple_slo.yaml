@@ -10,21 +10,21 @@ objectives:
     pass:        # pass if (relative change <= 10% AND absolute value is < 500)
       - criteria:
           - "<=+10%" # relative values require a prefixed sign (plus or minus)
-          - "<800"   # absolute values only require a logical operator
+          - "<1200"   # absolute values only require a logical operator
     warning:     # if the response time is below 800ms, the result should be a warning
       - criteria:
-          - "<=1000"
+          - "<=1500"
   - sli: throughput
     displayName: "Throughput"
   - sli: error_rate
-    displayName: "Error Rate"
+    displayName: "Error Count"
     weight: 2
     pass:
       - criteria:
-          - "<=1%"
+          - "<=1"
     warning:
       - criteria:
-          - "<=2%"
+          - "<=2"
   - sli: response_time_p50
     displayName: "Reponse Time P50"
   - sli: response_time_p90
