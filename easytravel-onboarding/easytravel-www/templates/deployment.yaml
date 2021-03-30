@@ -1,4 +1,12 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: www-config
+data:
+  ET_BACKEND_LOCATION: "easytravel-backend:8080"
+  ET_FRONTEND_LOCATION: "easytravel-frontend:8080"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,11 +44,14 @@ spec:
         - name: https
           containerPort: 443
           protocol: TCP              
-      - env:
-        - name: ET_FRONTEND_LOCATION
-          value: "easytravel-frontend:8080"
-        - name: ET_BACKEND_LOCATION
-          value: "easytravel-backend:8080"  
+        envFrom:
+          - configMapRef:
+              name: www-config
+        env:
+#        - name: ET_FRONTEND_LOCATION
+#          value: "easytravel-frontend:8080"
+#        - name: ET_BACKEND_LOCATION
+#          value: "easytravel-backend:8080"  
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
