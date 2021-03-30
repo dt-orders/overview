@@ -19,14 +19,14 @@ metadata:
   name: backend-config
 data:
   CATALINA_OPTS: "-Dconfig.apmServerDefault=APM -Djava.security.egd=file:/dev/./urandom"
-  ET_DATABASE_LOCATION: "easytravel-mongodb.easytravel-staging:27017"
+  ET_DATABASE_LOCATION: "easytravel-mongodb:27017"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: easytravel-backend  
   labels:
-    app: easytravel-k8s
+    app: easytravel-backend 
     type: backend-pod   
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -36,12 +36,12 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: easytravel-k8s
+      app: easytravel-backend 
       type: backend-pod
   template:
     metadata:
       labels:
-        app: easytravel-k8s        
+        app: easytravel-backend         
         type: backend-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"

@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: easytravel-mongodb
   labels:  
-    app:  easytravel-k8s
+    app:  easytravel-mongodb
     type: mongodb
 spec:
   ports:
@@ -17,6 +17,6 @@ spec:
     protocol: TCP
     targetPort: 28017
   selector:
-    app: easytravel-k8s
+    app: easytravel-mongodb
     type: mongodb-pod
-  type: ClusterIP      
+#  type: ClusterIP      

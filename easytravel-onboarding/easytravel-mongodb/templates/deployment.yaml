@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: easytravel-mongodb  
   labels:
-    app: easytravel-k8s  
+    app: easytravel-mongodb  
     type: mongodb
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -26,11 +26,11 @@ spec:
     type: RollingUpdate  
   selector:
     matchLabels:
-      app: easytravel-k8s
+      app: easytravel-mongodb
   template:
     metadata:
       labels:
-        app: easytravel-k8s
+        app: easytravel-mongodb
         type: mongodb
         deployment: easytravel-mongodb
         app.kubernetes.io/name: {{ .Values.keptn.service }}

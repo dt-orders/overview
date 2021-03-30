@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: easytravel-backend
   labels:   
-    app: easytravel-k8s
+    app: easytravel-backend
     type: backend-pod
 spec:
   ports:
@@ -21,7 +21,7 @@ spec:
     protocol: TCP
     targetPort: 8005
   selector:
-    app: easytravel-k8s
+    app: easytravel-backend
     type: backend-pod
 #  sessionAffinity: None
-  type: ClusterIP
+#  type: ClusterIP
