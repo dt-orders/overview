@@ -5,23 +5,22 @@ metadata:
   name: easytravel-backend
   labels:   
     app: easytravel-backend
-    type: backend-pod
 spec:
+  type: ClusterIP
   ports:
-  - name: "8080"
+  - name: http
     port: 8080
     protocol: TCP
     targetPort: 8080
-  - name: "8009"
+  - name: http2
     port: 8009
     protocol: TCP
     targetPort: 8009
-  - name: "8005"
+  - name: http3
     port: 8005
     protocol: TCP
     targetPort: 8005
   selector:
     app: easytravel-backend
-    type: backend-pod
 #  sessionAffinity: None
-#  type: ClusterIP
+

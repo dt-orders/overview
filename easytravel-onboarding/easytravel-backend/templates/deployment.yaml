@@ -26,8 +26,7 @@ kind: Deployment
 metadata:
   name: easytravel-backend  
   labels:
-    app: easytravel-backend 
-    type: backend-pod   
+    app: easytravel-backend   
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -37,12 +36,10 @@ spec:
   selector:
     matchLabels:
       app: easytravel-backend 
-      type: backend-pod
   template:
     metadata:
       labels:
         app: easytravel-backend         
-        type: backend-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
@@ -55,15 +52,15 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-#        - name: "port8009" 
-#          containerPort: 8009
-#          protocol: TCP
-#        - name: "port8005"  
-#          containerPort: 8005
-#          protocol: TCP
-        - name: "port8080"  
-          containerPort: 8080
-          protocol: TCP        
+        - name: http2 
+          containerPort: 8009
+          protocol: TCP
+        - name: http3  
+          containerPort: 8005
+          protocol: TCP
+        - name: http
+          protocol: TCP  
+          containerPort: 8080        
         envFrom:
           - configMapRef:
               name: backend-config
