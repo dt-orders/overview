@@ -1,2 +1,2 @@
 replicaCount: 1
-image: docker.io/dynatrace/easytravel-backend:2.0.0.3256
+image: docker.io/dynatrace/easytravel-backend:latest
