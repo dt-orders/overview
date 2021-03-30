@@ -1,4 +1,12 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  CATALINA_OPTS: "-Dconfig.apmServerDefault=APM -Xmx525m -Djava.security.egd=file:/dev/./urandom"
+  ET_BACKEND_URL: "http://easytravel-backend:8080"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,14 +44,17 @@ spec:
         - name: http
           containerPort: 8080
           protocol: TCP
-        - name: "8280"  
-          containerPort: 8280
-          protocol: TCP             
+#        - name: "8280"  
+#          containerPort: 8280
+#          protocol: TCP
+        envFrom:
+           - configMapRef:
+               name: frontend-config            
       - env:
-        - name: CATALINA_OPTS
-          value: "-Dconfig.apmServerDefault=APM -Xmx525m"
-        - name: ET_BACKEND_URL
-          value: "http://easytravel-backend:8080"
+#        - name: CATALINA_OPTS
+#          value: "-Dconfig.apmServerDefault=APM -Xmx525m"
+#        - name: ET_BACKEND_URL
+#          value: "http://easytravel-backend:8080"
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
