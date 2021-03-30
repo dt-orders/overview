@@ -1,4 +1,4 @@
 apiVersion: v1
 description: A Helm chart for service easytravel-frontend
-name: easytravel-frontend
+name: easytravel-www
 version: 0.1.0

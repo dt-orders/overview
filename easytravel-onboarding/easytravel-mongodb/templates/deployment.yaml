@@ -46,7 +46,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 27017
+          protocol: TCP
         - containerPort: 28017
+          protocol: TCP
         resources: {}
         volumeMounts:
         - mountPath: /data/db/easytravel

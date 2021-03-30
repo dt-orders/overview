@@ -23,6 +23,5 @@ spec:
   selector:
     app: easytravel-k8s
     type: backend-pod
-
 #  sessionAffinity: None
-#  type: ClusterIP
+  type: ClusterIP

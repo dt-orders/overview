@@ -18,4 +18,5 @@ spec:
     targetPort: 28017
   selector:
     app: easytravel-k8s
-    type: mongodb-pod    
+    type: mongodb-pod
+  type: ClusterIP      
