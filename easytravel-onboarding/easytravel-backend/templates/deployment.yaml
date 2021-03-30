@@ -6,12 +6,12 @@ metadata:
 type: Opaque
 data:
 #echo "plain_value" | base64
-#ET_MONGO_AUTH_DB: "admin"
-  ET_MONGO_AUTH_DB: YWRtaW4K
-#ET_DATABASE_USER: "etAdmin"
-  ET_DATABASE_USER: ZXRBZG1pbgo=
-#ET_DATABASE_PASSWORD: "adminadmin"
-  ET_DATABASE_PASSWORD: YWRtaW5hZG1pbgo=
+ET_MONGO_AUTH_DB: "admin"
+#  ET_MONGO_AUTH_DB: YWRtaW4K
+ET_DATABASE_USER: "etAdmin"
+#  ET_DATABASE_USER: ZXRBZG1pbgo=
+ET_DATABASE_PASSWORD: "adminadmin"
+#  ET_DATABASE_PASSWORD: YWRtaW5hZG1pbgo=
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -64,8 +64,8 @@ spec:
         envFrom:
           - configMapRef:
               name: backend-config
-#          - secretRef:
-#              name: backend-secret
+          - secretRef:
+              name: backend-secret
         env:
 #        - name: CATALINA_OPTS
 #          value: "-Dconfig.apmServerDefault=APM -Xmx300m"
