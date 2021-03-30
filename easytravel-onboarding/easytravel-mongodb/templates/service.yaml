@@ -6,7 +6,6 @@ metadata:
   labels:  
     app:  easytravel-mongodb
     type: mongodb
-    easytravel-tier: easytravel-mongodb
 spec:
   ports:
   - name: "27017"
@@ -20,4 +19,3 @@ spec:
   selector:
     app: easytravel-mongodb
     type: mongodb-pod    
-    easytravel-tier: easytravel-mongodb
