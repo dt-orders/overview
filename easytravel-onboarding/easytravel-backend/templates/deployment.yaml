@@ -26,7 +26,7 @@ kind: Deployment
 metadata:
   name: easytravel-backend  
   labels:
-    app: easytravel-backend
+    app: easytravel-k8s
     type: backend-pod   
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -36,12 +36,12 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: easytravel-backend
+      app: easytravel-k8s
       type: backend-pod
   template:
     metadata:
       labels:
-        app: easytravel-backend        
+        app: easytravel-k8s        
         type: backend-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"

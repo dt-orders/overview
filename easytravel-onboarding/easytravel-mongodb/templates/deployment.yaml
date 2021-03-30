@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: easytravel-mongodb  
   labels:
-    app: easytravel-mongodb  
+    app: easytravel-k8s  
     type: mongodb
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -26,11 +26,11 @@ spec:
     type: RollingUpdate  
   selector:
     matchLabels:
-      app: easytravel-mongodb
+      app: easytravel-k8s
   template:
     metadata:
       labels:
-        app: easytravel-mongodb
+        app: easytravel-k8s
         type: mongodb
         deployment: easytravel-mongodb
         app.kubernetes.io/name: {{ .Values.keptn.service }}
@@ -46,9 +46,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 27017
-          protocol: TCP
         - containerPort: 28017
-          protocol: TCP
         resources: {}
         volumeMounts:
         - mountPath: /data/db/easytravel
