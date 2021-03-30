@@ -64,8 +64,8 @@ spec:
         envFrom:
           - configMapRef:
               name: backend-config
-          - secretRef:
-              name: backend-secret
+#          - secretRef:
+#              name: backend-secret
         env:
 #        - name: CATALINA_OPTS
 #          value: "-Dconfig.apmServerDefault=APM -Xmx300m"
