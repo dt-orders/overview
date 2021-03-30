@@ -12,11 +12,11 @@ spec:
     port: 8080
     protocol: TCP
     targetPort: 8080
-  - name: http2
+#  - name: http2
 #    nodePort: 30280
-    port: 8280
-    protocol: TCP
-    targetPort: 8280
+#    port: 8280
+#    protocol: TCP
+#    targetPort: 8280
   selector:
     app: easytravel-frontend
 #  sessionAffinity: None

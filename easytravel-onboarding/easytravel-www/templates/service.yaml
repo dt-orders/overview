@@ -7,8 +7,10 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30080
+  - name: {{ .Values.service.name }}
+    port: {{ .Values.service.externalPort }}
+    protocol: TCP
+    targetPort: {{ .Values.service.internalPort }}
+#      nodePort: 30080
   selector:
     app: easytravel-www

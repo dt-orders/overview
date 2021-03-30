@@ -9,6 +9,7 @@ spec:
   ports:
   - name: {{ .Values.service.name }}
     port: {{ .Values.service.externalPort }}
+    protocol: TCP
     targetPort: {{ .Values.service.internalPort }}
 #  ports:
 #  - name: "27017"

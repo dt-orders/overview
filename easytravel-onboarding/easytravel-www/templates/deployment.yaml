@@ -38,12 +38,12 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-        - name: http
-          containerPort: 80
-          protocol: TCP     
-        - name: https
-          containerPort: 443
-          protocol: TCP              
+#        - name: http
+        - containerPort: 80
+#          protocol: TCP     
+#        - name: https
+        - containerPort: 443
+#          protocol: TCP              
         envFrom:
           - configMapRef:
               name: www-config

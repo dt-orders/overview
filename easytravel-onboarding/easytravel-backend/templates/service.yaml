@@ -12,15 +12,14 @@ spec:
     port: 8080
     protocol: TCP
     targetPort: 8080
-  - name: http2
-    port: 8009
-    protocol: TCP
-    targetPort: 8009
-  - name: http3
-    port: 8005
-    protocol: TCP
-    targetPort: 8005
+#  - name: http2
+#    port: 8009
+#    protocol: TCP
+#    targetPort: 8009
+#  - name: http3
+#    port: 8005
+#    protocol: TCP
+#    targetPort: 8005
   selector:
     app: easytravel-backend
-#  sessionAffinity: None
 

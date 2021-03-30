@@ -38,9 +38,9 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
+#        - name: http
+        - containerPort: 8080
+#          protocol: TCP
 #        - name: "8280"  
 #          containerPort: 8280
 #          protocol: TCP

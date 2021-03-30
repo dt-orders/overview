@@ -53,10 +53,10 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
 #        - name: http2 
-        - containerPort: 8009
+#        - containerPort: 8009
 #          protocol: TCP
 #        - name: http3  
-        - containerPort: 8005
+#        - containerPort: 8005
 #          protocol: TCP
 #        - name: http
 #          protocol: TCP  

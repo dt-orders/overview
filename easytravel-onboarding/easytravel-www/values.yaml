@@ -1,2 +1,6 @@
 replicaCount: 1
 image: docker.io/dynatrace/easytravel-nginx:latest
+service:
+    externalPort: 80
+    internalPort: 80
+    name: easytravel-www
