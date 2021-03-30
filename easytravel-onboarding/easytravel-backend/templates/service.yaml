@@ -4,8 +4,8 @@ kind: Service
 metadata:
   name: easytravel-backend
   labels:   
-    app: easytravel
-    type: backend
+    app: easytravel-backend
+    type: backend-pod
     easytravel-tier: easytravel-backend
 spec:
   ports:
@@ -22,7 +22,7 @@ spec:
     protocol: TCP
     targetPort: 8005
   selector:
-    app: easytravel
+    app: easytravel-backend
     type: backend-pod
     easytravel-tier: easytravel-backend
 
