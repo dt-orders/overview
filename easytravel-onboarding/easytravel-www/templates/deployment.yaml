@@ -38,7 +38,6 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-#        - name: http
         - containerPort: 80
 #          protocol: TCP     
 #        - name: https
@@ -47,11 +46,7 @@ spec:
         envFrom:
           - configMapRef:
               name: www-config
-        env:
-#        - name: ET_FRONTEND_LOCATION
-#          value: "easytravel-frontend:8080"
-#        - name: ET_BACKEND_LOCATION
-#          value: "easytravel-backend:8080"  
+        env: 
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME

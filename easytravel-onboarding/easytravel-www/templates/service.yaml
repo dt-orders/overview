@@ -14,3 +14,4 @@ spec:
 #      nodePort: 30080
   selector:
     app: easytravel-www
+  type: ClusterIP  

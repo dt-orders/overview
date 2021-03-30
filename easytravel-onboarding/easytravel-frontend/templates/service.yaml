@@ -7,11 +7,11 @@ metadata:
     app: easytravel-frontend
 spec:
   ports:
-  - name: easytravel-frontend
-#    nodePort: 30080
-    port: 8080
+  - name: {{ .Values.service.name }}
+    port: {{ .Values.service.externalPort }}
     protocol: TCP
-    targetPort: 8080
+    targetPort: {{ .Values.service.internalPort }}
+#    nodePort: 30080
 #  - name: http2
 #    nodePort: 30280
 #    port: 8280
@@ -20,4 +20,4 @@ spec:
   selector:
     app: easytravel-frontend
 #  sessionAffinity: None
-#  type: NodePort
+  type: ClusterIP

@@ -38,7 +38,6 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-#        - name: http
         - containerPort: 8080
 #          protocol: TCP
 #        - name: "8280"  
@@ -48,10 +47,6 @@ spec:
            - configMapRef:
                name: frontend-config            
         env:
-#        - name: CATALINA_OPTS
-#          value: "-Dconfig.apmServerDefault=APM -Xmx525m"
-#        - name: ET_BACKEND_URL
-#          value: "http://easytravel-backend:8080"
         - name: DT_CUSTOM_PROP
           value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
@@ -86,5 +81,3 @@ spec:
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15          
-
-

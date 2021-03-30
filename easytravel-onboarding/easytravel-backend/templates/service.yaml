@@ -8,10 +8,10 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: easytravel-backend
-    port: 8080
+  - name: {{ .Values.service.name }}
+    port: {{ .Values.service.externalPort }}
     protocol: TCP
-    targetPort: 8080
+    targetPort: {{ .Values.service.internalPort }}
 #  - name: http2
 #    port: 8009
 #    protocol: TCP
@@ -22,4 +22,5 @@ spec:
 #    targetPort: 8005
   selector:
     app: easytravel-backend
+  type: ClusterIP  
 

@@ -11,15 +11,10 @@ spec:
     port: {{ .Values.service.externalPort }}
     protocol: TCP
     targetPort: {{ .Values.service.internalPort }}
-#  ports:
-#  - name: "27017"
-#    port: 27017
-#    protocol: TCP
-#   targetPort: 27017
   - name: "28017"
     port: 28017
-#    protocol: TCP
+    protocol: TCP
     targetPort: 28017
   selector:
     app: easytravel-mongodb
-#  type: ClusterIP      
+  type: ClusterIP      
