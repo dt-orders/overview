@@ -13,13 +13,11 @@ metadata:
   name: easytravel-frontend
   labels:
     app: easytravel-frontend
-    type: frontend-pod
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: easytravel-frontend
-      type: frontend-pod
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -28,7 +26,6 @@ spec:
     metadata:
       labels:
         app: easytravel-frontend
-        type: frontend-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
@@ -50,7 +47,7 @@ spec:
         envFrom:
            - configMapRef:
                name: frontend-config            
-      - env:
+        env:
 #        - name: CATALINA_OPTS
 #          value: "-Dconfig.apmServerDefault=APM -Xmx525m"
 #        - name: ET_BACKEND_URL

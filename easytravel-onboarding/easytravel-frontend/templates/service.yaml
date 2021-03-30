@@ -4,8 +4,7 @@ kind: Service
 metadata:
   name: easytravel-frontend
   labels:
-    app: easytravel
-    type: frontend-pod 
+    app: easytravel-frontend
 spec:
   ports:
   - name: "port1"
@@ -19,8 +18,6 @@ spec:
     protocol: TCP
     targetPort: 8280
   selector:
-    app: easytravel
-    type: frontend-pod
-
+    app: easytravel-frontend
 #  sessionAffinity: None
 #  type: NodePort
