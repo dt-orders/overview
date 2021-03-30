@@ -1,4 +1,26 @@
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-secret
+type: Opaque
+data:
+#echo "plain_value" | base64
+#ET_MONGO_AUTH_DB: "admin"
+  ET_MONGO_AUTH_DB: YWRtaW4K
+#ET_DATABASE_USER: "etAdmin"
+  ET_DATABASE_USER: ZXRBZG1pbgo=
+#ET_DATABASE_PASSWORD: "adminadmin"
+  ET_DATABASE_PASSWORD: YWRtaW5hZG1pbgo=
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  CATALINA_OPTS: "-Dconfig.apmServerDefault=APM -Djava.security.egd=file:/dev/./urandom"
+  ET_DATABASE_LOCATION: "easytravel-mongodb:27017"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,16 +65,16 @@ spec:
           containerPort: 8080
           protocol: TCP        
         env:
-        - name: CATALINA_OPTS
-          value: "-Dconfig.apmServerDefault=APM -Xmx300m"
-        - name: ET_DATABASE_LOCATION
-          value: "easytravel-mongodb:27017"
-        - name: ET_MONGO_AUTH_DB
-          value: "admin"
-        - name: ET_DATABASE_USER
-          value: "etAdmin"
-        - name: ET_DATABASE_PASSWORD
-          value: "adminadmin"  
+#        - name: CATALINA_OPTS
+#          value: "-Dconfig.apmServerDefault=APM -Xmx300m"
+#        - name: ET_DATABASE_LOCATION
+#          value: "easytravel-mongodb:27017"
+#        - name: ET_MONGO_AUTH_DB
+#          value: "admin"
+#        - name: ET_DATABASE_USER
+#          value: "etAdmin"
+#        - name: ET_DATABASE_PASSWORD
+#          value: "adminadmin"  
 
         - name: DT_CUSTOM_PROP
           value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
