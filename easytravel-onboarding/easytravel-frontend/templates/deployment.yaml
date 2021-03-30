@@ -5,13 +5,11 @@ metadata:
   name: easytravel-frontend
   labels:
     app: easytravel-frontend
-    type: frontend
-    easytravel-tier: easytravel-frontend
+    type: frontend-pod
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      easytravel-tier: easytravel-frontend
       app: easytravel-frontend
       type: frontend-pod
   strategy:
@@ -21,9 +19,8 @@ spec:
   template:
     metadata:
       labels:
-        easytravel-tier: easytravel-frontend
-        tier: frontend
         app: easytravel-frontend
+        type: frontend-pod
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api

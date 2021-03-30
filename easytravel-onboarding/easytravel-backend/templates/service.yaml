@@ -6,7 +6,6 @@ metadata:
   labels:   
     app: easytravel-backend
     type: backend-pod
-    easytravel-tier: easytravel-backend
 spec:
   ports:
   - name: "8080"
@@ -24,7 +23,6 @@ spec:
   selector:
     app: easytravel-backend
     type: backend-pod
-    easytravel-tier: easytravel-backend
 
 #  sessionAffinity: None
 #  type: ClusterIP

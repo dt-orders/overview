@@ -5,8 +5,7 @@ metadata:
   name: easytravel-frontend
   labels:
     app: easytravel
-    type: frontend 
-    easytravel-tier: easytravel-frontend
+    type: frontend-pod 
 spec:
   ports:
   - name: "port1"
@@ -22,7 +21,6 @@ spec:
   selector:
     app: easytravel
     type: frontend-pod
-    easytravel-tier: easytravel-frontend
 
 #  sessionAffinity: None
 #  type: NodePort
