@@ -64,12 +64,12 @@ spec:
         - name: "port8080"  
           containerPort: 8080
           protocol: TCP        
-          envFrom:
-            - configMapRef:
-                name: backend-config
-            - secretRef:
-                name: backend-secret
-          env:
+        envFrom:
+          - configMapRef:
+              name: backend-config
+          - secretRef:
+              name: backend-secret
+        env:
 #        - name: CATALINA_OPTS
 #          value: "-Dconfig.apmServerDefault=APM -Xmx300m"
 #        - name: ET_DATABASE_LOCATION
@@ -80,7 +80,6 @@ spec:
 #          value: "etAdmin"
 #        - name: ET_DATABASE_PASSWORD
 #          value: "adminadmin"  
-
           - name: DT_CUSTOM_PROP
             value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
           - name: POD_NAME
