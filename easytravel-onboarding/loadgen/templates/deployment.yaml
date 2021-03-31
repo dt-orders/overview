@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: loadgen-config
 data:
-  ET_FRONTEND_URL: "http://easytravel-frontend-service:8080"
+  ET_FRONTEND_URL: "http://easytravel-frontend:8080"
   ET_PROBLEMS: "BadCacheSynchronization,CPULoad,DatabaseCleanup,DatabaseSlowdown,FetchSizeTooSmall,JourneySearchError404,JourneySearchError500,LoginProblems,MobileErrors,TravellersOptionBox"
 ---
 apiVersion: apps/v1
