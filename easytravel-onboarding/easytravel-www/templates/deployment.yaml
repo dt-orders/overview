@@ -66,14 +66,14 @@ spec:
           value: "{{ .Values.keptn.deployment }}"         
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
