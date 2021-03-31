@@ -16,6 +16,12 @@ spec:
                 teststrategy: "performance"
             - name: "evaluation"
             - name: "release"
+        - name: "delivery-direct"
+          tasks:
+            - name: "deployment"
+              properties:
+                deploymentstrategy: "direct"
+            - name: "release"    
 
     - name: "production"
       sequences:
@@ -35,3 +41,11 @@ spec:
                 pass: "automatic"
                 warning: "manual"    
             - name: "release" 
+        - name: "delivery-direct"
+          triggeredOn:
+            - event: "staging.delivery-direct.finished"
+          tasks:
+            - name: "deployment"
+              properties:
+                deploymentstrategy: "direct"
+            - name: "release"
