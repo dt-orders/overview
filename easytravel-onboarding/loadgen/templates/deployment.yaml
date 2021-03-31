@@ -32,7 +32,7 @@ spec:
         app: loadgenerator
     spec:
       containers:
-      - name: easytravel-loadgen
+      - name: loadgenerator
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         envFrom:
