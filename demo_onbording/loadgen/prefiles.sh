@@ -6,6 +6,6 @@ DOMAIN=$KEPTN_DOMAIN
 
 echo "changing to domain ${DOMAIN}"
 
-SVC-DOMAIN="svc.cluster.local"
+SVCDOMAIN="svc.cluster.local"
 
-for f in *.yaml; do sed -i "s|${SVC-DOMAIN}|${DOMAIN}|g" "$f"; done
+for f in *.yaml; do sed -i "s|${SVCDOMAIN}|${DOMAIN}|g" "$f"; done
