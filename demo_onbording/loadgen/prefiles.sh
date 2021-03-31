@@ -8,4 +8,4 @@ echo "changing to domain ${DOMAIN}"
 
 SVC-DOMAIN="svc.cluster.local"
 
-find ./ -exec sed -i 's/${SVC-DOMAIN}/${DOMAIN}/g' {} \;
+for f in *.yaml; do sed -i "s|${SVC-DOMAIN}|${DOMAIN}|g" "$f"; done
