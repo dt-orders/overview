@@ -2,7 +2,7 @@
 
 cp ~/examples/load-generation/cartsloadgen/deploy/cartsloadgen-* ~/overview/demo_onbording/loadgen/.
 
-DOMAIN=$KEPTN_DOMAIN
+DOMAIN=$1
 
 echo "changing to domain ${DOMAIN}"
 
