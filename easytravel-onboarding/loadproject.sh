@@ -4,7 +4,7 @@
 
 ~/keptn-in-a-box/resources/easytravel/onboard_easytravel_qualitygates.sh
 
-keptn trigger delivery --project=easytravel --service=easytravel-mongodb --image=docker.io/dynatrace/easytravel-mongodb --tag=latest --labels=creator=cli
+keptn trigger delivery --project=easytravel --service=easytravel-mongodb --image=docker.io/dynatrace/easytravel-mongodb --sequence=delivery-direct --tag=latest --labels=creator=cli
 sleep 45
 keptn trigger delivery --project=easytravel --service=easytravel-backend --image=docker.io/dynatrace/easytravel-backend --tag=latest --labels=creator=cli
 sleep 120
