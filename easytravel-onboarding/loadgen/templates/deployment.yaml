@@ -1,16 +1,23 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loadgen-config
+data:
+  ET_FRONTEND_URL: "http://easytravel-frontend-service:8080"
+  ET_PROBLEMS: "BadCacheSynchronization,CPULoad,DatabaseCleanup,DatabaseSlowdown,FetchSizeTooSmall,JourneySearchError404,JourneySearchError500,LoginProblems,MobileErrors,TravellersOptionBox"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    easytravel-tier: easytravel-backend
-  name: easytravel-backend
-  namespace: easytravel
+    app: loadgenerator
+  name: loadgenerator
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      easytravel-tier: easytravel-backend
+      app: loadgenerator
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,21 +26,12 @@ spec:
   template:
     metadata:
       labels:
-        easytravel-tier: easytravel-backend
-        tier: backend
-      name: easytravel-backend
+        app: loadgenerator
     spec:
       containers:
-      - env:
-        - name: ET_DATABASE_LOCATION
-          value: easytravel-mongodb-service:27017
-        image: dynatrace/easytravel-backend:2.0.0.3256
-        imagePullPolicy: Always
-        name: easytravel-backend
-        ports:
-        - containerPort: 8009
-          protocol: TCP
-        - containerPort: 8005
-          protocol: TCP
-        - containerPort: 8080
-          protocol: TCP
+      - name: easytravel-loadgen
+        image: "{{ .Values.image }}"
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: loadgen-config
