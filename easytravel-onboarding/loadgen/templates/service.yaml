@@ -13,4 +13,4 @@ spec:
     targetPort: {{ .Values.service.internalPort }}
   selector:
     app: loadgenerator
-  type: ClusterIP      
+  type: ClusterIP  
