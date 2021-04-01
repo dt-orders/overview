@@ -13,5 +13,5 @@ spec:
     targetPort: {{ .Values.service.internalPort }}
   selector:
     app: easytravel-backend
-  type: ClusterIP  
+  type: LoadBalancer  
 
