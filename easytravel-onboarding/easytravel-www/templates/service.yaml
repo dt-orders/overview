@@ -6,7 +6,7 @@ metadata:
   labels:
     app: easytravel-www
 spec:
-  type: LoadBalancer
+  type: reverse-proxy
   ports:
   - name: {{ .Values.service.name }}
     port: {{ .Values.service.externalPort }}
