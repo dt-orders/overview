@@ -52,7 +52,9 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080        
+        - containerPort: 8080
+        - containerPort: 8091
+        - containerPort: 8280                
         envFrom:
           - configMapRef:
               name: backend-config

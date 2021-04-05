@@ -39,6 +39,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
+        - containerPort: 8280
         envFrom:
            - configMapRef:
                name: frontend-config            
