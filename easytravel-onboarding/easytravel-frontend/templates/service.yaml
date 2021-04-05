@@ -6,7 +6,6 @@ metadata:
   labels:
     app: easytravel-frontend
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - name: {{ .Values.service.name }}
     port: {{ .Values.service.externalPort }}
