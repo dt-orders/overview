@@ -8,6 +8,8 @@ services:
     environment:
       - BACKEND_URL=http://172.17.0.1:8080
       - MONOLITH=true
+      - DT_CUSTOM_PROP=project=dt-orders stage=dev service=frontend owner=app-team-2 backend=monolith
+      - DT_CLUSTER_ID=monolith-frontend
   backend-service:
     hostname: backend
     image: dtdemos/dt-orders-backend-monolith:1
@@ -18,3 +20,21 @@ services:
       - CUSTOMER_SERVICE_PORT=8080
       - CATALOG_SERVICE_DOMAIN=172.17.0.1
       - CATALOG_SERVICE_PORT=8080
+      - DT_CUSTOM_PROP=project=dt-orders stage=dev service=backend owner=app-team-2
+      - DT_CLUSTER_ID=monolith-backend
+  order-load:
+    hostname: load
+    image: dtdemos/dt-orders-load:1
+    environment:
+      - HOSTNAME=172.17.0.1
+      - SERVER_PORT=80
+      - NUM_LOOPS=100
+      - NUM_THREADS=1
+      - THINK_TIME=250
+      - TEST_SCRIPT=load.jmx
+      - TEST_DEBUG=false
+      - MONOLITH=true
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 10s
