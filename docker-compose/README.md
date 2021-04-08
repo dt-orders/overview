@@ -2,48 +2,81 @@
 
 This folder contains the script and files to start the dt-orders application using docker-compose.  
 
-Once the application is running, see these repos for scripts that will create traffic against the running application
-* [Browser traffic](https://github.com/dt-orders/browser-traffic)
-* [Load traffic](https://github.com/dt-orders/load-traffic)
+# Welcome 
 
-# Prerequisites
+These are the steps to setup the sample application on the VM.  There are two docker-compose files to run a `monolith` and a `services` backend for the application.  
 
-1 . Have a host with [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) installed on it
+# Prereqs
 
-2 . Clone this repo 
+Below are instructions for preparing to run the application 
 
-# Monolith topology
+1. The application runs on port 80 so ensure the VM had has a public IP and these ports open.
 
-## Start the application
+1. On the VM to run the application run the following on an AWS EC2 Linux OS
 
-Run `docker-compose -f docker-compose-monolith.yaml up -d` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
+    ```
+    # general utilities
+    sudo yum update -y
+    sudo yum install git -y
+    sudo yum install jq -y
 
-## Check that frontend and service containers are running
+    # docker
+    # Reference:* https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+    sudo yum update -y
+    sudo yum install -y amazon-linux-extras
+    sudo amazon-linux-extras install docker -y
+    sudo service docker start
+    sudo systemctl enable docker
+    sudo usermod -a -G docker ec2-user
 
-Verify pods with `docker-compose ps`
+    # review commands
+    sudo docker info
+    sudo systemctl status docker
 
-Open the front-end in a browser for the app `http://localhost` or the public IP of the host it was run on
+    # docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
+    sudo chmod +x /usr/bin/docker-compose
+    docker-compose version
+    ```
 
-## Stop the application
+1. clone this repo `git clone https://github.com/dt-orders/overview.git`
 
-Run this command to stop `docker-compose -f docker-compose-monolith.yaml down`
+# Start the application 
 
-# Microservices topology
+1. From the cloned repo, navigate to the app subfolder
 
-## Start the application
+    ```
+    cd overview/docker-compose
+    ```
 
-Run `docker-compose up -d` to start all the services.  It takes about 45 seconds to start, but then the application can be accessed
+2. Start the app 
 
-## Check that frontend and service containers are running
+    ```
+    # for monolith
+    sudo docker-compose -f docker-compose-monolith.yaml up -d
 
-Verify pods with `docker-compose ps`
+    # for services
+    sudo docker-compose -f docker-compose-services.yaml up -d
+    ```
 
-Open the front-end in a browser for the app `http://localhost` or the public IP of the host it was run on
+# Verify app is running
 
-## Stop the application
+It takes about 45 seconds to start, but then the application can be accessed
 
-Run this command to stop `docker-compose down`
+Verify pods with `sudo docker ps`
 
-## Change image versions
+You can review any of the container logs with `sudo docker logs XXX -f`  where `XXX` is the container process ID from `sudo docker ps`
 
-Edit the `docker-compose.yaml` and run `docker-compose up` again.
+Open the front-end in a browser for the app  `http://PUBLIC-IP` 
+
+# Stop the application
+
+Run this command to stop the containers
+
+```
+# for monolith
+docker-compose -f docker-compose-monolith.yaml down
+
+# for services
+docker-compose -f docker-compose-services.yaml down
+```
