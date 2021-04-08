@@ -2,10 +2,6 @@
 
 This folder contains the script and files to start the dt-orders application using docker-compose.  
 
-# Welcome 
-
-These are the steps to setup the sample application on the VM.  There are two docker-compose files to run a `monolith` and a `services` backend for the application.  
-
 # Prereqs
 
 Below are instructions for preparing to run the application 
@@ -42,6 +38,8 @@ Below are instructions for preparing to run the application
 1. clone this repo `git clone https://github.com/dt-orders/overview.git`
 
 # Start the application 
+
+There are two docker-compose files to run a `monolith` and a `services` backend for the application.  
 
 1. From the cloned repo, navigate to the app subfolder
 
