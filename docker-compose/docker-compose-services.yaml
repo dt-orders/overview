@@ -50,17 +50,11 @@ services:
       - THINK_TIME=250
       - TEST_SCRIPT=load.jmx
       - TEST_DEBUG=false
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 10s
+    restart: always
   order-browser:
     hostname: browser
     image: dtdemos/dt-orders-browser:1
     environment:
       - APP_URL=http://172.17.0.1
       - SCRIPT_NUM_LOOPS=1000
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 10s
+    restart: always

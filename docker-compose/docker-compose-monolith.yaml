@@ -34,7 +34,4 @@ services:
       - TEST_SCRIPT=load.jmx
       - TEST_DEBUG=false
       - MONOLITH=true
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 10s
+    restart: always
