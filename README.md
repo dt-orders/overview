@@ -26,24 +26,22 @@ Below are two option to deploy the application:
 * See [docker-compose sub-folder README](docker-compose/README.md)
 * See [K8 sub-folder README](k8/README.md)
 
-# Pre-built Docker Images
+# Problem Patterns
 
-The dt-orders application has pre-built problems programmed within different versions.  See source in the [dt-orders repo](https://github.com/dt-orders).  Each version for each service, has pre-built docker images that are published to [dockerhub](https://hub.docker.com/u/dtdemos).
+The dt-orders application has pre-built problems programmed within different versions that can be enabled as a `feature flag` using a URL.
 
-# Monolith images
+Pre-built docker images are also published to [dockerhub](https://hub.docker.com/u/dtdemos) with the problem patterns ON or OFF if that approach of deploying a new container is desired.  The version is set as a Docker tag, for example: `dtdemos/customer-service:2` is the customer service version 2.
 
-This is a summary of the versions followed by a description of the problem scenarios.
+# Monolith App versions
 
-| Service  | Branch/Docker Tag | Description |
+| Service  | Version | Description |
 |---|:---:|---|
 | frontend | 1 | Normal behavior |
 | backend-service | 1 | Normal behavior |
 
-# Microservices images
+# Microservices App versions
 
-This is a summary of the versions followed by a description of the problem scenarios.
-
-| Service  | Branch/Docker Tag | Description |
+| Service  | Version | Description |
 |---|:---:|---|
 | frontend | 1 | Normal behavior |
 | catalog-service | 1 | Normal behavior |
@@ -56,16 +54,37 @@ This is a summary of the versions followed by a description of the problem scena
 
 # Microservices - Problem Scenarios
 
-## Deploy dtdemos/customer-service:2
+## Customer service version 2
 
 <img src="images/usecase1.png" width="500"/>
 
-## Deploy dtdemos/order-service:2 
+## Order service version 2
 
-Both these scenearios are enabled
+Both these scenarios are enabled
 
 <img src="images/usecase2.png" width="500"/>
 
 and...
 
 <img src="images/usecase3.png" width="500"/>
+
+# Feature Flag
+
+To set the version using the feature flag - you can use the URL in a browser or just make a GET request to the URL.
+
+| Service | What | URL | Description |
+|---|:---:|---|---|
+| Customer | View current version | http://x.x.x.x/customer/version | Will just display a number |
+| Customer | Set version | http://x.x.x.x/customer/setversion/X | X = value 1 or 2. |
+| Catalog | View current version | http://x.x.x.x/catalog/version | Will just display a number |
+| Catalog | Set version | http://x.x.x.x/catalog/setversion/X | X = value 1 or 2. |
+
+After setting the version - the response message will say `Action was successful!`.  Also, the version number on the DT Orders home page will reflect the new version.
+
+# Pre-built Docker Images
+
+There is a `buildpush.sh` script in [customer service](https://github.com/dt-orders/customer-service/blob/master/buildpush.sh) and [order service](https://github.com/dt-orders/order-service/blob/master/buildpush.sh) repos that will just set an ENVIRONMENT that will run the services with that version. 
+
+The version number on the DT Orders home page will reflect the service version.
+
+The version can still be changed using the `Feature Flag` mentioned above.
