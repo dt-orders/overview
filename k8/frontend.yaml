@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: dtdemos/dt-orders-frontend:1
+        image: dtdemos/dt-orders-frontend:1.0.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

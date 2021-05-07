@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: customer
-        image: dtdemos/dt-orders-customer-service:1
+        image: dtdemos/dt-orders-customer-service:1.0.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
