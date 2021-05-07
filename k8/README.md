@@ -2,27 +2,22 @@
 
 This folder contains the script and chart files to deploy the dt-orders application and traffic generators.
 
-**NOTE: This only supports the microservices deployment option**
+**NOTE: This only supports the microservices topology option**
 
 # Prerequisites
 
-1 . Create a Kubernetes cluster and configure kubectl to connect to it. 
+1 . Create a Kubernetes cluster and configure `kubectl` to connect to it. 
 
 2 . Have a Dynatrace tenant and install [Dynatrace OneAgent Operator](https://www.dynatrace.com/support/help/technology-support/cloud-platforms/kubernetes/deploy-oneagent-k8/)  
 
 # Deploy Application
 
-1 . Clone this repo and run these commands
-```
-# create the namespace
-kubectl create ns dt-orders
+There are a few scripts that can be used to start and stop the services
+* Application - use the `start-app.sh` and `stop-app.sh`
+* Browser traffic - use the `start-browser.sh` and `stop-browser.sh`
+* Load traffic - use the `start-load.sh` and `stop-load.sh`
 
-# apply app chart files
-kubectl -n dt-orders apply -f catalog-service.yaml
-kubectl -n dt-orders apply -f customer-service.yaml
-kubectl -n dt-orders apply -f order-service.yaml
-kubectl -n dt-orders apply -f frontend.yaml
-```
+1 . Clone this repo and run the `start-app.sh` script
 
 2 . Monitor pods.  You should see this:
 ```
@@ -70,19 +65,4 @@ One option is to just remove the namespace
 kubectl delete ns dt-orders
 ```
 
-Or you can just remove each deployment that will terminate the pods.
-
-```
-kubectl -n dt-orders delete deploy frontend
-kubectl -n dt-orders delete deploy catalog
-kubectl -n dt-orders delete deploy customer
-kubectl -n dt-orders delete deploy order
-```
-
-# Traffic generators
-
-There are two scripts that can be run independently to make create traffic.
-* Browser traffic - use the `start-browser.sh` and `stop-browser.sh`
-* Load traffic - use the `start-load.sh` and `stop-load.sh`
-
-Monitor the pods with the `kubectl -n dt-orders get pods` command
+Or you can just remove each deployment using the `stop` app and load unix scripts and then remove the namespace.

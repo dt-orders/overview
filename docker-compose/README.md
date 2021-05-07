@@ -1,14 +1,18 @@
 # Overview 
 
-This folder contains the script and files to start the dt-orders application using docker-compose.  
+This folder contains the script and files to start the dt-orders application using docker-compose. 
 
 # Prereqs
 
-Below are instructions for preparing to run the application 
+* VM running 16GB - for example (AWS = t3.xlarge and Azure = Standard_E2_v3)
+* open port 80
+* docker & docker-compose installed
 
-1. The application runs on port 80 so ensure the VM had has a public IP and these ports open.
+# VM setup
 
-1. On the VM to run the application run the following on an AWS EC2 Linux OS
+Below are instructions for preparing to run the application on an AWS EC2 Linux OS but it can be adapted to run on Azure.
+
+1. On the VM to run the application run the following 
 
     ```
     # general utilities
@@ -35,46 +39,66 @@ Below are instructions for preparing to run the application
     docker-compose version
     ```
 
-1. clone this repo `git clone https://github.com/dt-orders/overview.git`
-
 # Start the application 
 
-There are two docker-compose files to run a `monolith` and a `services` backend for the application.  
+There are two docker-compose files to run the `monolith` or `multi-services` topologies of the application.  Both can be run on the same host, but typically for demos they are run on two separate hosts.
 
-1. From the cloned repo, navigate to the app subfolder
+1. Clone this repo `git clone https://github.com/dt-orders/overview.git`
+
+1. From the cloned repo, navigate to the docker-compose subfolder
 
     ```
     cd overview/docker-compose
     ```
 
-2. Start the app 
+## Multiple services topology
+
+1. Start the app 
 
     ```
-    # for monolith
-    sudo docker-compose -f docker-compose-monolith.yaml up -d
-
-    # for services
     sudo docker-compose -f docker-compose-services.yaml up -d
     ```
 
-# Verify app is running
+1. Verify app is running
 
-It takes about 45 seconds to start, but then the application can be accessed
+    It takes about 45 seconds to start, but then the application can be accessed
 
-Verify pods with `sudo docker ps`
+    ```
+    sudo docker ps
+    ```
 
-You can review any of the container logs with `sudo docker logs XXX -f`  where `XXX` is the container process ID from `sudo docker ps`
+1. Open the front-end in a browser for the app  `http://PUBLIC-IP` where `PUBLIC-IP` of the host running docker-compose.
 
-Open the front-end in a browser for the app  `http://PUBLIC-IP` 
+1. If required, review any of the container logs with `sudo docker logs XXX -f`  where `XXX` is the container process ID from `sudo docker ps`
 
-# Stop the application
+1. Stop the application
 
-Run this command to stop the containers
+    ```
+    docker-compose -f docker-compose-services.yaml down
+    ```
 
-```
-# for monolith
-docker-compose -f docker-compose-monolith.yaml down
+## Monolith topology
 
-# for services
-docker-compose -f docker-compose-services.yaml down
-```
+1. Start the app 
+
+    ```
+    sudo docker-compose -f docker-compose-monolith.yaml up -d
+    ```
+
+1. Verify app is running
+
+    It takes about 45 seconds to start, but then the application can be accessed
+
+    ```
+    sudo docker ps
+    ```
+
+1. Open the front-end in a browser for the app  `http://PUBLIC-IP` where `PUBLIC-IP` of the host running docker-compose.
+
+1. If required, review any of the container logs with `sudo docker logs XXX -f`  where `XXX` is the container process ID from `sudo docker ps`
+
+1. Stop the application
+
+    ```
+    docker-compose -f docker-compose-monolith.yaml down
+    ```

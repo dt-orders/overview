@@ -4,14 +4,20 @@ This application was built for demonstations of Dynatrace.  The front-end look l
 
 <img src="images/orders.png" width="300"/>
 
-There are two toplogies of the application
-1. **monolith** - two Docker components: a frontend web UI and 1 backend services.  Once monitored by Dynatrace, a multi-tier call flow will be available such as shown below.
+There are two topologies of the application
+1. **Monolith** - two Docker components: a frontend web UI and 1 backend services.  Once monitored by Dynatrace, a multi-tier call flow will be available such as shown below.
 
     <img src="images/dt-call-flow-monolith.png" width="500"/>
 
-1. **microservices** - four Docker components: a frontend web UI and 3 backend services.  Once monitored by Dynatrace, a multi-tier call flow will be available such as shown below.
+1. **Multi-services** - four Docker components: a frontend web UI and 3 backend services.  Once monitored by Dynatrace, a multi-tier call flow will be available such as shown below.
 
     <img src="images/dt-call-flow.png" width="500"/>
+
+# How to run the application
+
+Below are two options to deploy the application:
+* Using docker-compose. See the docker-compose sub-folder [README](docker-compose/README.md)
+* Using kubernetes. See the K8 sub-folder [README](k8/README.md)
 
 # Traffic generators
 
@@ -20,66 +26,52 @@ Once the application is running, the Docker images from these two repos can be u
 * [Browser traffic](https://github.com/dt-orders/browser-traffic)
 * [Load traffic](https://github.com/dt-orders/load-traffic)
 
-# Deployment
-
-Below are two option to deploy the application:
-* See [docker-compose sub-folder README](docker-compose/README.md)
-* See [K8 sub-folder README](k8/README.md)
-
 # Problem Patterns
 
-The dt-orders application has pre-built problems programmed within different versions that can be enabled as a `feature flag` using a URL.
+The dt-orders application has pre-built problems programmed within different versions that can be enabled as using a GET request to a setversion URL. 
 
-Pre-built docker images are also published to [dockerhub](https://hub.docker.com/u/dtdemos) with the problem patterns ON or OFF if that approach of deploying a new container is desired.  The version is set as a Docker tag, for example: `dtdemos/customer-service:2` is the customer service version 2.
+Pre-built docker images are also published to [dockerhub](https://hub.docker.com/u/dtdemos) with the problem patterns ON or OFF if that approach of deploying a new container is desired.  The version is set as a Docker tag, for example: `dtdemos/customer-service:2.0.0` is the customer service version 2.
 
 # Monolith App versions
 
 | Service  | Version | Description |
 |---|:---:|---|
 | frontend | 1 | Normal behavior |
-| backend-service | 1 | Normal behavior |
+| backend | 1 | Normal behavior |
+| backend | 2 | High Response time for all requests |
+| backend | 3 | 50% exception (http 500) for all requests |
 
-# Microservices App versions
+# Multi-services versions
 
 | Service  | Version | Description |
 |---|:---:|---|
 | frontend | 1 | Normal behavior |
 | catalog-service | 1 | Normal behavior |
 | customer-service | 1 | Normal behavior |
+| customer-service | 2 | High Response time for view customer list only (/customer/list.html) |
+| customer-service | 3 | High Response time for all requests |
 | order-service | 1 | Normal behavior |
-| customer-service | 2 | High Response time for /customer/list.html |
-| order-service | 2 | 50% exception for /order/line URL and n+1 back-end calls for /order/form.html |
-| customer-service | 3 | Normal behavior |
-| order-service | 3 | Normal behavior |
+| order-service | 2 | 50% exception (http 500) for new order line only (/order/line URL)  |
+| order-service | 3 | 50% exception (http 500) for all requests |
+| order-service | 4 | n+1 back-end calls for view order form only (/order/form.html) |
 
-# Microservices - Problem Scenarios
+# Microservices - Pictures
 
-## Customer service version 2
+View the **Images Powerpoint** in the `images` subfolder for pictures of these problems.
 
-<img src="images/usecase1.png" width="500"/>
+# Set version while app is running
 
-## Order service version 2
+Use the version URLs below to view and set the version. The services read the provided or default environment variable and then maintain this as an internal variable that can be updated. You can use the URLs below in a browser or just make a GET request to the URL using a tool like curl.
 
-Both these scenarios are enabled
+ What | URL | Description |
+|---|---|---|
+| View current version | http://[hostname or IP]/[service name]/version | Will just display a number |
+| Set version | http://[hostname or IP]/[service name]/setversion/X | X = value like 1 or 2 |
 
-<img src="images/usecase2.png" width="500"/>
-
-and...
-
-<img src="images/usecase3.png" width="500"/>
-
-# Feature Flag
-
-To set the version using the feature flag - you can use the URL in a browser or just make a GET request to the URL.
-
-| Service | What | URL | Description |
-|---|:---:|---|---|
-| Customer | View current version | http://x.x.x.x/customer/version | Will just display a number |
-| Customer | Set version | http://x.x.x.x/customer/setversion/X | X = value 1 or 2. |
-| Catalog | View current version | http://x.x.x.x/catalog/version | Will just display a number |
-| Catalog | Set version | http://x.x.x.x/catalog/setversion/X | X = value 1 or 2. |
-
-After setting the version - the response message will say `Action was successful!`.  Also, the version number on the DT Orders home page will reflect the new version.
+Notes
+* [service name] is a value such as `order`, `customer`, `backend`
+* After setting the version - the response message will say `Action was successful!`.  
+* Also, the version number on the DT Orders home page will reflect the new version.
 
 # Pre-built Docker Images
 
