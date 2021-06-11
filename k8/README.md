@@ -48,7 +48,7 @@ This may vary by the k8 installation you setup
 echo http://$(kubectl -n dt-orders get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
 
 # IP
-echo http://$(kubectl -n dt-orders get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].ip")
+echo http://$(kubectl -n dt-orders get service frontend -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
 ```
 
 5 . Open the frontend URL in a browser
