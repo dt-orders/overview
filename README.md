@@ -1,6 +1,6 @@
 # Overview
 
-This application was built for demonstations of Dynatrace.  The front-end look like this.
+This application was built for demonstrations of Dynatrace.  The front-end look like this.
 
 <img src="images/orders.png" width="300"/>
 
@@ -13,11 +13,11 @@ There are two topologies of the application
 
     <img src="images/dt-call-flow.png" width="500"/>
 
-# How to run the application
+# How to install and run the application
 
 Below are two options to deploy the application:
-* Using docker-compose. See the docker-compose sub-folder [README](docker-compose/README.md)
-* Using kubernetes. See the K8 sub-folder [README](k8/README.md)
+* Using docker-compose on a Virtual Machine. See the docker-compose sub-folder [README](vm/README.md)
+* Using kubernetes. See the K8 sub-folder [README](k8s/README.md)
 
 # Traffic generators
 
@@ -80,3 +80,7 @@ There is a `buildpush.sh` script in [customer service](https://github.com/dt-ord
 The version number on the DT Orders home page will reflect the service version.
 
 The version can still be changed using the `Feature Flag` mentioned above.
+
+# Support
+
+For support, feedback or questions contact alliance-help@dynatrace.com

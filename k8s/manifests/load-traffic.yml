@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-traffic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dt-orders
+      app.kubernetes.io/name: load-traffic
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: load-traffic
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: traffic-simulation
+        app.kubernetes.io/part-of: dt-orders
+        app.kubernetes.io/managed-by: helm
+        app.kubernetes.io/created-by: dynatrace-demos
+    spec:
+      containers:
+      - name: load-traffic
+        image: dtdemos/dt-orders-load:1
+        imagePullPolicy: Always
+        env:
+        - name: HOSTNAME
+          value: "frontend"
+        - name: NUM_LOOPS
+          value: "100000"
+        - name: TEST_DEBUG
+          value: "false"

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dt-orders
+      app.kubernetes.io/name: frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: frontend
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: dt-orders
+        app.kubernetes.io/managed-by: helm
+        app.kubernetes.io/created-by: dynatrace-demos
+      annotations:
+        owner: Team Frontend
+        chat-channel: dev-team-frontend 
+    spec:
+      containers:
+      - name: frontend
+        image: dtdemos/dt-orders-frontend:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: frontend
+        env:
+        - name: DT_CUSTOM_PROP
+          value: "project=dt-orders service=frontend"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app.kubernetes.io/part-of: dt-orders
+    app.kubernetes.io/name: frontend
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      name: frontend
+  selector:
+    app.kubernetes.io/part-of: dt-orders
+    app.kubernetes.io/name: frontend
+  type: LoadBalancer

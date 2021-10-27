@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: browser-traffic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dt-orders
+      app.kubernetes.io/name: browser-traffic
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: browser-traffic
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: traffic-simulation
+        app.kubernetes.io/part-of: dt-orders
+        app.kubernetes.io/managed-by: helm
+        app.kubernetes.io/created-by: dynatrace-demos
+    spec:
+      containers:
+      - name: browser-traffic
+        image: dtdemos/dt-orders-browser:1
+        imagePullPolicy: Always
+        env:
+        - name: APP_URL
+          value: "http://frontend"
+        - name: SCRIPT_NUM_LOOPS
+          value: "15000"

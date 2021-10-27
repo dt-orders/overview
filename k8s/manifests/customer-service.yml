@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dt-orders
+      app.kubernetes.io/name: customer-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: customer-service
+        app.kubernetes.io/version: "1"
+        app.kubernetes.io/component: service
+        app.kubernetes.io/part-of: dt-orders
+        app.kubernetes.io/managed-by: helm
+        app.kubernetes.io/created-by: dynatrace-demos
+      annotations:
+        owner: Team Services
+        chat-channel: dev-team-services
+    spec:
+      containers:
+      - name: customer
+        image: dtdemos/dt-orders-customer-service:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: cust-service
+        env:
+        - name: DT_CUSTOM_PROP
+          value: "project=dt-orders service=customer-service"
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer
+  labels:
+    app.kubernetes.io/part-of: dt-orders
+    app.kubernetes.io/name: customer-service
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: customer
+  selector:
+    app.kubernetes.io/part-of: dt-orders
+    app.kubernetes.io/name: customer-service
+  type: ClusterIP

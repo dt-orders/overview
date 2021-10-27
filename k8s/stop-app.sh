@@ -1,36 +1,42 @@
 #!/bin/bash
 
 echo "=========================================================="
-echo "Starting app on k8"
+echo "Stopping app on k8"
 echo "=========================================================="
 
 echo "----------------------------------------------------------"
-echo "kubectl create ns dt-orders"
+echo "kubectl -n staging delete deploy browser-traffic"
 echo "----------------------------------------------------------"
-kubectl create ns dt-orders
+kubectl -n staging delete deploy browser-traffic
 
 echo "----------------------------------------------------------"
-echo "kubectl -n dt-orders apply -f catalog-service.yaml"
+echo "kubectl -n staging delete deploy load-traffic"
 echo "----------------------------------------------------------"
-kubectl -n dt-orders apply -f catalog-service.yaml
+kubectl -n staging delete deploy load-traffic
 
 echo "----------------------------------------------------------"
-echo "kubectl -n dt-orders apply -f customer-service.yaml"
+echo "kubectl -n staging delete deploy frontend"
 echo "----------------------------------------------------------"
-kubectl -n dt-orders apply -f customer-service.yaml
+kubectl -n staging delete deploy frontend
 
 echo "----------------------------------------------------------"
-echo "kubectl -n dt-orders apply -f order-service.yaml"
+echo "kubectl -n staging delete deploy catalog"
 echo "----------------------------------------------------------"
-kubectl -n dt-orders apply -f order-service.yaml
+kubectl -n staging delete deploy catalog
 
 echo "----------------------------------------------------------"
-echo "kubectl -n dt-orders apply -f frontend.yaml"
+echo "kubectl -n staging delete deploy customer"
 echo "----------------------------------------------------------"
-kubectl -n dt-orders apply -f frontend.yaml
+kubectl -n staging delete deploy customer
 
 echo "----------------------------------------------------------"
-echo "kubectl -n dt-orders get pods"
+echo "kubectl -n staging delete deploy order"
 echo "----------------------------------------------------------"
-sleep 5
-kubectl -n dt-orders get pods
+kubectl -n staging delete deploy order
+
+sleep 10
+
+echo "----------------------------------------------------------"
+echo "kubectl -n staging get pods"
+echo "----------------------------------------------------------"
+kubectl -n staging get pods
