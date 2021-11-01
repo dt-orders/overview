@@ -6,6 +6,18 @@ This folder contains the script and files to start and stops the dt-orders appli
 
 Have a Virtual machine that will host the application. See [VM SETUP README](VMSETUP.md) for details.
 
+# Dynatrace monitoring
+
+To install the [Dynatrace OneAgent](https://www.dynatrace.com/support/help/setup-and-configuration/dynatrace-oneagent) on the host, the easiest was for this is to:
+
+1. Login into Dynatrace
+1. Navigate to `Deploy Dynatrace` menu on the bottom left side
+1. Pick `Start Installation` and then the `Linux` option
+1. One the `Download Dynatrace OneAgent for Linux` page, choose `Create token` button
+1. Copy and paste the `Download the installer` and `Run the installer` commands from a SSH shell for the virtual machine
+1. Back in Dynatrace, pick the `Show deployment status` button to monitor the install
+1. In Dynatrace, navigate to `Hosts` menu on the bottom left side to review the host
+
 # Start the application 
 
 There are two docker-compose files to run the `monolith` or `multi-services` topologies of the application.  For demos they typically are run on two separate hosts.
